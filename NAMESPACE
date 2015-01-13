@@ -1,0 +1,15 @@
+## Functions
+export(bcdist, distance, fixdmat)
+export(mantel, mgram, pmgram, MRM)
+export(cor2m, corgen, crosstab, full, lower)
+export(pco, nmds, nmds.min, vf)
+export(plot.vf, plot.mgram, residuals.mgram)
+## import for S3
+import(stats, graphics)
+## S3 methods
+S3method(plot, vf)
+S3method(plot, mgram)
+S3method(residuals, mgram)
+## Compiled code
+useDynLib(ecodist)
+
