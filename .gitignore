@@ -1,0 +1,13 @@
+# vim tempfiles
+*~
+.*swp
+
+# R History files
+.Rhistory
+.Rapp.history
+
+# R saves
+*.RData
+
+# R packages
+*.tar.gz
