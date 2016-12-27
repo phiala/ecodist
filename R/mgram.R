@@ -47,7 +47,7 @@ mgram <- function(species.d, space.d, breaks, nclass, stepsize, nperm = 1000, mr
    dimnames(answer.m) <- list(NULL, c("lag", "ngroup", "mantelr", "pval", "llim", "ulim"))
    answer.m[,4] <- rep(1, nrow(answer.m))
 
-	for(i in 1:nclass) {
+	for(i in seq_len(nclass)) {
       dmin <- breaks[i]
       dmax <- breaks[i + 1]
 		answer.m[i,1] <- (dmin + dmax) / 2

@@ -28,7 +28,7 @@ stop("Matrix not square.\n")
     }
 
     # convert matrices to column order to ensure compatibility with C
-    for(thiscol in 1:ncol(m)) {
+    for(thiscol in seq_len(ncol(m)) {
         tempmat <- full(m[,thiscol])
         m[,thiscol] <- tempmat[col(tempmat) > row(tempmat)]
     }

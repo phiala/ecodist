@@ -1,4 +1,4 @@
-nmds <- function(dmat, mindim = 1, maxdim = 2, nits = 10, iconf = 0, epsilon = 1e-12, maxit = 500, trace=FALSE, stresscalc="default")
+nmds <- function(dmat, mindim = 1, maxdim = 2, nits = 10, iconf = 0, epsilon = 1e-12, maxit = 500, trace=FALSE)
 
 {
 # Non-metric multidimensional scaling function
@@ -20,32 +20,29 @@ nmds <- function(dmat, mindim = 1, maxdim = 2, nits = 10, iconf = 0, epsilon = 1
 # along with the cumulative and incremental r^2 for each axis.
 # The first nits elements are for the lowest number of dimensions.
 #
-# stresscalc can be "default" for compatibility with previous versions 
-# of ecodist, or "kruskal" to follow Kruskal 1994 method exactly.
+# stresscalc has been updated 2016-12-27 to be compatible with vegan::metaMDS
+# and MASS::isoMDS, and may no longer be compatible with previous results.
+# The method of finding the optimum is unchanged.
 
 
 nmdscalc <- function(dmat, ndim, iconf, epsilon, maxit, trace)
 
 {
 
-sstress <- function(dmat, cmat, stresscalc)
+sstress <- function(dmat, newconf)
 {
-# Calculates the stress-1 function for the original and
-# new NMDS configurations (Kruskal 1964).
+# Calculates the scaled stress-1 function from the original distances
+# and new NMDS configurations following Kruskal 1964 and vegan:metaMDS
 
-    if(stresscalc == "default") {
-        sstresscalc <- (dmat - cmat) ^ 2
-        sstresscalc <- sum(sstresscalc) / sum(cmat ^ 2)
+    # Calculate stress based on Shepard diagram
+    dshep <- Shepard(dmat, newconf)
+    dmat <- dshep$y
+    cmat <- dshep$yf
 
-        sqrt(sstresscalc)
-    }
-    else if(stresscalc == "kruskal") {
-        sstresscalc <- (dmat - cmat) ^ 2
-        sstresscalc <- sum(sstresscalc) / sum(dmat ^ 2)
+    sstresscalc <- (dmat - cmat) ^ 2
+    sstresscalc <- sum(sstresscalc) / sum(dmat ^ 2)
 
-        sqrt(sstresscalc)
-    }
-    else stop("stresscalc has an unknown value\n")
+    sqrt(sstresscalc)
 
 }
 
@@ -66,7 +63,7 @@ if(dim(iconf)[[2]] != ndim) {
 
 k <- 0
 conf <- iconf
-stress2 <- sstress(dmat, dist(iconf), stresscalc)
+stress2 <- sstress(dmat, iconf)
 stress1 <- stress2 + 1 + epsilon
 
 while(k < maxit && abs(stress1 - stress2) > epsilon) {
@@ -86,7 +83,7 @@ while(k < maxit && abs(stress1 - stress2) > epsilon) {
 
    conf <- (1 / n) * b %*% conf
 
-   stress2 <- sstress(dmat, dist(conf), stresscalc)
+   stress2 <- sstress(dmat, conf)
 
    if(trace) cat(k, ",\t", stress1, "\n")
 
@@ -106,7 +103,7 @@ k <- 1
 
 for(i in mindim:maxdim) {
    if(trace) cat("Number of dimensions: ", i, "\n")
-   for(j in 1:nits) {
+   for(j in seq_len(nits)) {
       if(trace) cat("Iteration number: ", j, "\n")
       nmdsr <- nmdscalc(dmat, ndim = i, iconf, epsilon, maxit, trace)
       conf[[k]] <- nmdsr$conf

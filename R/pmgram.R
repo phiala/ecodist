@@ -62,7 +62,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
    answer.m[,4] <- rep(0, nrow(answer.m))
 
 # standardize so mean = 0, variance = 1
-	for(i in 1:ncol(data)) {
+	for(i in seq_len(ncol(data))) {
 		thiscol <- data[,i]
 		ydif <- thiscol - mean(thiscol)
 		yvar <- sqrt(sum(ydif^2)/length(ydif))
@@ -72,7 +72,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 
 	if(!missing(partial)) {
 		partial <- as.matrix(as.vector(partial))
-		for(i in 1:ncol(partial)) {
+		for(i in seq_len(ncol(partial))) {
 			thiscol <- partial[,i]
 			ydif <- thiscol - mean(thiscol)
 			yvar <- sqrt(sum(ydif^2)/length(ydif))
@@ -90,7 +90,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 
 	if(missing(partial)) {
 		if(ncol(data) == 1) {
-			for(i in 1:nclass) {
+			for(i in seq_len(nclass)) {
             dmin <- breaks[i]
             dmax <- breaks[i + 1]
          
@@ -132,7 +132,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 			}
 		}
 		else {
-			for(i in 1:nclass) {
+			for(i in seq_len(nclass)) {
             dmin <- breaks[i]
             dmax <- breaks[i + 1]
 				answer.m[i,1] <- dmax
@@ -183,7 +183,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 	}
 	else {
 		if(ncol(data) == 1) {
-			for(i in 1:nclass) {
+			for(i in seq_len(nclass)) {
             dmin <- breaks[i]
             dmax <- breaks[i + 1]
 				answer.m[i,1] <- dmax
@@ -221,7 +221,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 			}
 		}
 		else {
-			for(i in 1:nclass) {
+			for(i in seq_len(nclass)) {
             dmin <- breaks[i]
             dmax <- breaks[i + 1]
 				answer.m[i,1] <- (dmin + dmax) / 2
