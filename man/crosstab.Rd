@@ -15,6 +15,7 @@ crosstab(rowlab, collab, values, type = "sum", data, allrows, allcols, ...)
   \item{type}{ function to use to combine data, one of "sum" (default), "min", "max", "mean", "count". }
   \item{allrows}{ optional, list of all desired row names that may not appear in rowlab. }
   \item{allcols}{ optional, list of all desired column names that may not appear in collab. }
+  \item{na.as.0}{ if TRUE, all NA values are replaced with 0. }
   \item{...}{ optional arguments to the function specified in type, such as na.rm=TRUE}
 }
 

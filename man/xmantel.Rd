@@ -1,17 +1,15 @@
-\name{mantel}
-\alias{mantel}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Mantel test }
+\name{xmantel}
+\alias{xmantel}
+\title{ Cross-Mantel test }
 \description{
-  Simple and partial Mantel tests, with options for ranked data, permutation tests, and bootstrapped confidence limits.
+  Simple and partial cross-Mantel tests, with options for ranked data, permutation tests, and bootstrapped confidence limits.
 }
 \usage{
-mantel(formula = formula(data), data = sys.parent(), nperm = 1000,
+xmantel(formula = formula(data), data = sys.parent(), nperm = 1000,
     mrank = FALSE, nboot = 500, pboot = 0.9, cboot = 0.95)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{formula}{ formula in R/S-Plus format describing the test to be conducted. For this test, y ~ x will perform a simple Mantel test, while y ~ x + z1 + z2 + z3 will do a partial Mantel test of the relationship between x and y given z1, z2, z3. All variables can be either a distance matrix of class dist or vectors of dissimilarities. }
+  \item{formula}{ formula in R/S-Plus format describing the test to be conducted. For this test, y ~ x will perform a simple Mantel test, while y ~ x + z1 + z2 + z3 will do a partial Mantel test of the relationship between x and y given z1, z2, z3. All variables should be either non-symmetric square cross-dissimilary matrices of class xdist, or vector forms thereof. }
   \item{data}{ an optional dataframe containing the variables in the model as columns of dissimilarities. By default the variables are taken from the current environment. }
   \item{nperm}{ number of permutations to use. If set to 0, the permutation test will be omitted. }
   \item{mrank}{ if this is set to FALSE (the default option), Pearson correlations will be used. If
@@ -49,20 +47,9 @@ Goslee, S.C. 2010. Correlation analysis of dissimilarity matrices. Plant Ecology
 }
 \author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
 
-\seealso{ \code{\link{mgram}} }
+\seealso{  \code{\link{xdistance}}, \code{\link{xmgram}} }
 \examples{
-\dontrun{
-# Example of multivariate analysis using built-in iris dataset
-data(iris)
-iris.md <- distance(iris[,1:4], "mahal")
-
-# Create a model matrix for testing species differences
-iris.model <- distance(as.numeric(iris[,5]), "eucl")
-iris.model[iris.model > 0] <- 1
-
-# Test whether samples within the same species are more similar than those not
-mantel(iris.md ~ iris.model, nperm=10000)
-}
+# Need to develop a cross-dissimilarity example
 }
 
 \keyword{ multivariate }

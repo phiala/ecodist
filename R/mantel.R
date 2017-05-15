@@ -55,11 +55,12 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
 # End of R stuff. m is now the data for the Mantel test as
 # columns y, x, n1, n2, n3, ...
 # Determine the size of the matrices & do some error checking.
-        n <- (1 + sqrt(1 + 8 * nrow(m)))/2
+        n <- sqrt(dim(m)[[1]])
         if(abs(n - round(n)) > 0.0000001)
-		stop("Matrix not square.\n")
-	n <- round(n)
-        if(ncol(m) < 2) stop("Not enough data. \n")
+		    stop("Matrix not square.\n")
+	    n <- round(n)
+        if(ncol(m) < 2) 
+            stop("Not enough data. \n")
 
 # If there are only x and y, then use the data as is.
         if(dim(m)[[2]] == 2) {

@@ -2,8 +2,9 @@
 export(bcdist, distance, fixdmat)
 export(mantel, mgram, pmgram, MRM)
 export(cor2m, corgen, crosstab, full, lower)
-export(pco, nmds, nmds.min, vf)
+export(pco, nmds, nmds.min, vf, addord)
 export(plot.vf, plot.mgram, residuals.mgram)
+export(xdistance, xmantel, xmgram)
 ## import for S3
 import(stats, graphics)
 ## S3 methods

@@ -25,26 +25,26 @@ This function does four different analyses:
 	calculates a multivariate correlogram for data.
 
 If data has 2 columns and partial is missing,
-	calculates Mantel r between the two columns for each distance class.
+	calculates a Mantel cross-correlogram, calculating the Mantel r between
+	the two columns for each distance class separately.
 
 If data has 1 column and partial exists,
-	does a multivariate correlogram for the residuals,
-	taking residuals over whole extent.
+	calculates a partial multivariate correlogram based on residuals of data ~ partial.
 
 If data has 2 columns and partial exists,
-	does a partial multivariate correlogram, 
-	calculating partial for each distance class separately.
+	does a partial Mantel cross-correlogram, 
+	calculating partial Mantel r for each distance class separately.
 
-The statistic used is not the standard Mantel r. For one variable, using Euclidean distance, this metric converges on the familiar Moran au-
-tocorrelation. Like the Moran autocorrelation function, this statistic usually falls between -1 and 1, but is not bounded by those limits. Unlike the Moran function, this correlogram can be used for multivariate data, and can be extended to partial tests.
+The Iwt statistic used for the multivariate correlograms is not the standard Mantel r. For one variable, using Euclidean distance, this metric converges on the familiar Moran autocorrelation. Like the Moran autocorrelation function, this statistic usually falls between -1 and 1, but is not bounded by those limits. Unlike the Moran function, this correlogram can be used for multivariate data, and can be extended to partial tests.
 
+The comparisons in \code{vignette("dissimilarity", package="ecodist")} may help.
 }
 \value{
   Returns a object of class mgram, which is a list containing two objects:
   mgram is a matrix with one row for each distance class and 4 columns:
   \item{lag }{midpoint of the distance class.}
   \item{ngroup }{number of distances in that class.}
-  \item{piecer }{Mantel r value or appropriate statistic (see Details).}
+  \item{piecer or Iwt }{Mantel r value or appropriate statistic  (see Details).}
   \item{pval }{two-sided p-value.}
   resids is a vector of the residuals (if calcuated) and can be accessed with the residuals() method.
 }

@@ -1,18 +1,18 @@
-\name{mgram}
-\alias{mgram}
+\name{xmgram}
+\alias{xmgram}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Mantel correlogram }
+\title{Cross-Mantel correlogram }
 \description{
-	Calculates simple Mantel correlograms. 
+	Calculates simple Mantel correlograms from cross-distance matrices. 
 }
 \usage{
-mgram(species.d, space.d, breaks, nclass, stepsize, nperm = 1000,
+xmgram(species.d, space.d, breaks, nclass, stepsize, nperm = 1000,
     mrank = FALSE, nboot = 500, pboot = 0.9, cboot = 0.95, 
     alternative = "two.sided", trace = FALSE)
 }
 \arguments{
-  \item{species.d}{ lower-triangular dissimilarity matrix. }
-  \item{space.d}{ lower-triangular matrix of geographic distances. }
+  \item{species.d}{ non-symmetric square cross-distance matrix. }
+  \item{space.d}{ non-symmetric square matrix of geographic distances. }
   \item{breaks}{ locations of class breaks. If specified, overrides nclass and stepsize. }
   \item{nclass}{ number of distance classes. If not specified, Sturge's rule will be used
 to determine an appropriate number of classes. }
@@ -28,7 +28,7 @@ to determine an appropriate number of classes. }
   \item{trace}{ if TRUE, returns progress indicators. }
 }
 \details{
-This function calculates Mantel correlograms. The Mantel correlogram is essentially a multivariate autocorrelation function.
+This function calculates cross-Mantel correlograms. The Mantel correlogram is essentially a multivariate autocorrelation function.
 The Mantel r represents the dissimilarity in variable composition  (often 
 species composition) at a particular lag distance.
 }
@@ -47,24 +47,9 @@ species composition) at a particular lag distance.
 Vegetatio 80:107-138. }
 \author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
 
-\seealso{ \code{\link{mantel}}, \code{\link{plot.mgram}}, \code{\link{pmgram}} }
+\seealso{\code{\link{xdistance}} \code{\link{xmantel}}, \code{\link{plot.mgram}} }
 \examples{
-\dontrun{
 
-# generate a simple surface
-x <- matrix(1:10, nrow=10, ncol=10, byrow=FALSE)
-y <- matrix(1:10, nrow=10, ncol=10, byrow=TRUE)
-z <- x + 3*y
-image(z)
-
-# analyze the pattern of z across space
-space <- cbind(as.vector(x), as.vector(y))
-z <- as.vector(z)
-space.d <- distance(space, "eucl")
-z.d <- distance(z, "eucl")
-z.mgram <- mgram(z.d, space.d, nperm=0)
-plot(z.mgram)
-}
-
+# Need to develop a cross-dissimilarity example
 }
 \keyword{ multivariate }% at least one, from doc/KEYWORDS

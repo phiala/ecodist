@@ -7,24 +7,26 @@
 }
 
 \usage{
-MRM(formula = formula(data), data = sys.parent(), nperm = 1000, mrank = FALSE)
+MRM(formula = formula(data), data = sys.parent(), nperm = 1000, method = "linear",
+mrank = FALSE)
 }
 
 \arguments{
   \item{formula}{ formula in R/S-Plus format describing the test to be conducted. }
   \item{data}{ an optional dataframe containing the variables in the model as columns of dissimilarities. By default the variables are taken from the current environment. }
-  \item{nperm}{  number of permutations to use. If set to 0, the permutation test will be omitted. }
-  \item{mrank}{if this is set to FALSE (the default option), Pearson correlations will be used. If
+  \item{nperm}{ number of permutations to use. If set to 0, the permutation test will be omitted. }
+  \item{mrank}{ if this is set to FALSE (the default option), Pearson correlations will be used. If
  set to TRUE, the Spearman correlation (correlation ranked distances) will be used.  }
+  \item{method}{ if "linear", the default, uses multiple regression analysis. If "logistic", performs logistic regression with appropriate permutation testing. Note that this may be substantially slower.}
 }
 \details{
   Performs multiple regression on distance matrices following the methods outlined in Legendre et al. 1994.
 }
 \value{
   \item{coef }{A matrix with regression coefficients and associated p-values from the permutation test (using the pseudo-t of Legendre et al. 1994).}
-  \item{r.squared }{Regression R-squared and associated p-value from the permutation test. } 
-  \item{F.test }{F-statistic and p-value for overall F-test for lack of fit.}
-
+  \item{r.squared }{Regression R-squared and associated p-value from the permutation test (linear only). } 
+  \item{F.test }{F-statistic and p-value for overall F-test for lack of fit (linear only).}
+  \item{dev }{Residual deviance, degrees of freetom, and associated p-value (logistic only).}
 }
 
 \references{ 

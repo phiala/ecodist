@@ -2,7 +2,7 @@
 \alias{bcdist}
 \title{ Bray-Curtis distance }
 \description{
-  Returns the Bray-Curtis (also known as Sorenson, 1 - percent similarity) pairwise distances for the objects in the data. It has been superseded by distance() but remains for backward compatibility.
+  Returns the Bray-Curtis (also known as Sorenson, 1 - percent similarity) pairwise distances for the objects in the data. It is duplicated by functionality within \code{\link{distance}} but remains for backward compatibility and because it is substantially faster.
 }
 \usage{
 bcdist(x, rmzero = FALSE)
@@ -10,7 +10,7 @@ bcdist(x, rmzero = FALSE)
 \arguments{
   \item{x}{ matrix or data frame with rows as samples and columns as variables (such as 
 species). Distances will be calculated for each pair of rows. }
-  \item{rmzero}{ If rzero=TRUE, empty rows will be removed from the data before 
+  \item{rmzero}{ If rmzero=TRUE, empty rows will be removed from the data before 
 distances are calculated. Otherwise, the distance between two empty rows is assumed to be 0 (the default). }
 }
 \value{
@@ -18,7 +18,7 @@ distances are calculated. Otherwise, the distance between two empty rows is assu
   }
 \author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
 
-\seealso{ \code{\link{dist}} }
+\seealso{ \code{\link{dist}},  \code{\link{distance}}}
 \examples{
 data(iris)
 iris.bc <- bcdist(iris[,1:4])
