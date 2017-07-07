@@ -1,0 +1,54 @@
+\name{xmgram}
+\alias{xmgram}
+\title{Cross-Mantel correlogram }
+\description{
+	Calculates simple Mantel correlograms from cross-distance matrices.
+}
+\usage{
+xmgram(species.d, space.d, breaks, nclass, stepsize, nperm = 1000,
+    mrank = FALSE, nboot = 500, pboot = 0.9, cboot = 0.95,
+    alternative = "two.sided", trace = FALSE)
+}
+\arguments{
+  \item{species.d}{ non-symmetric square cross-distance matrix. }
+  \item{space.d}{ non-symmetric square matrix of geographic distances. }
+  \item{breaks}{ locations of class breaks. If specified, overrides nclass and stepsize. }
+  \item{nclass}{ number of distance classes. If not specified, Sturge's rule will be used
+to determine an appropriate number of classes. }
+  \item{stepsize}{ width of each distance class. If not specified, nclass and the range of space.d will be used to calculate an appropriate default. }
+  \item{nperm}{ number of permutations to use. If set to 0, the permutation test will be omitted. }
+  \item{mrank}{ if this is set to FALSE (the default option), Pearson correlations will be used. If
+ set to TRUE, the Spearman correlation (correlation ranked distances) will be used. }
+  \item{nboot}{ number of iterations to use for the bootstrapped confidence limits. If set to 0,
+ the bootstrapping will be omitted. }
+  \item{pboot}{ the level at which to resample the data for the bootstrapping procedure. }
+  \item{cboot}{ the level of the confidence limits to estimate. }
+  \item{alternative}{ default is "two.sided", and returns p-values for H0: rM = 0. The alternative is "one.sided", which returns p-values for H0: rM <= 0. }
+  \item{trace}{ if TRUE, returns progress indicators. }
+}
+\details{
+This function calculates cross-Mantel correlograms. The Mantel correlogram is essentially a multivariate autocorrelation function.
+The Mantel r represents the dissimilarity in variable composition  (often
+species composition) at a particular lag distance.
+}
+\value{
+	Returns an object of class mgram, which is a list with two elements.
+    mgram is a matrix with one row for each distance class and 6 columns:
+  \item{lag }{midpoint of the distance class.}
+  \item{ngroup }{number of distances in that class.}
+  \item{mantelr }{Mantel r value.}
+  \item{pval }{p-value for the test chosen.}
+  \item{llim }{lower bound of confidence limit for mantelr.}
+  \item{ulim }{upper bound of confidence limit for mantelr.}
+  resids is NA for objects calculated by mgram().
+}
+\references{ Legendre, P. and M. Fortin. 1989. Spatial pattern and ecological analysis.
+Vegetatio 80:107-138. }
+\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+
+\seealso{\code{\link{xdistance}} \code{\link{xmantel}}, \code{\link{plot.mgram}} }
+\examples{
+
+# Need to develop a cross-dissimilarity example
+}
+\keyword{ multivariate }

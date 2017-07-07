@@ -2,7 +2,7 @@
 \alias{vf}
 \title{ Vector fitting }
 \description{
-  Fits environmental variables to an ordination configuration.
+  Fits ancillary variables to an ordination configuration.
 }
 \usage{
 vf(ord, vars, nperm = 100)
@@ -24,25 +24,32 @@ vf(ord, vars, nperm = 100)
 \seealso{ \code{\link{plot.vf}} }
 \examples{
 
-\dontrun{
 # Example of multivariate analysis using built-in iris dataset
 data(iris)
-iris <- iris[seq(1, 150, by=3),]
-iris.md <- distance(iris[,1:4], "mahal")
+iris.d <- dist(iris[,1:4])
 
-# Minimum-stress 2-dimensional nonmetric multidimensional scaling configuration
-# Uses small number of separate ordinations (5) to increase speed of example.
-# Use more for final analysis.
-iris.nmds <- nmds(iris.md, mindim=2, maxdim=2, nits=3)
-iris.nmin <- nmds.min(iris.nmds)
+### nmds() is timeconsuming, so this was generated
+### in advance and saved.
+### set.seed(1234)
+### iris.nmds <- nmds(iris.d, nits=20, mindim=1, maxdim=4)
+### save(iris.nmds, file="ecodist/data/iris.nmds.rda")
+data(iris.nmds)
 
-# Plot NMDS result with symbols denoting species
-plot(iris.nmin, pch=as.numeric(iris[,5]))
+# examine fit by number of dimensions
+plot(iris.nmds)
 
-# Fit vectors for the main variables to the NMDS configuration
-iris.vf <- vf(iris.nmin, iris[,1:4], nperm=10)
-plot(iris.vf, col="blue")
-}
+# choose the best two-dimensional solution to work with
+iris.nmin <- min(iris.nmds, dims=2)
+
+# fit the data to the ordination as vectors
+### vf() is timeconsuming, so this was generated
+### in advance and saved.
+### set.seed(1234)
+### iris.vf <- vf(iris.nmin, iris[,1:4], nperm=1000)
+### save(iris.vf, file="ecodist/data/iris.vf.rda")
+data(iris.vf)
+plot(iris.nmin, col=as.numeric(iris$Species), pch=as.numeric(iris$Species), main="NMDS")
+plot(iris.vf)
 
 }
 \keyword{ multivariate }

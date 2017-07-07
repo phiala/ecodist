@@ -1,7 +1,7 @@
 \name{bump}
 \alias{bump}
 \docType{data}
-\title{ Nine-bump spatial pattern}
+\title{Nine-bump spatial pattern}
 \description{
   A two-dimensional artificial "landscape" illustrating the kind of spatial pattern that might be seen across mountain peaks.
 }
@@ -16,6 +16,5 @@
 \examples{
 data(bump)
 image(bump)
-## maybe str(bump) ; plot(bump) ...
 }
 \keyword{datasets}

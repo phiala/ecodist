@@ -26,15 +26,11 @@ rounding to that number of places. }
 
 \seealso{ \code{\link{princomp}}, \code{\link{nmds}} }
 \examples{
-
-\dontrun{
 data(iris)
-iris.md <- distance(iris[,1:4], "mahal")
-iris.pco <- pco(iris.md)
+iris.d <- dist(iris[,1:4])
+iris.pco <- pco(iris.d)
 
 # scatterplot of the first two dimensions
-plot(iris.pco$vectors[,1], iris.pco$vectors[,2], pch=as.numeric(iris[,5]))
-}
-
+plot(iris.pco$vectors[,1:2], col=as.numeric(iris$Species), pch=as.numeric(iris$Species), main="PCO", xlab="PCO 1", ylab="PCO 2")
 }
 \keyword{ multivariate }

@@ -2,7 +2,7 @@
 # matrix. If TRIM, set rho<critical value(alpha) to NA. Computes
 # this critical value as a t-test with n-2 df.
 
-cor2m <- function(x,y, trim=TRUE, alpha=0.05) {
+cor2m <- function(x, y, trim=TRUE, alpha=0.05) {
 	xz <- scale(as.matrix(x))
 	yz <- scale(as.matrix(y))
 	n <- dim(x)[[1]]
@@ -14,7 +14,5 @@ cor2m <- function(x,y, trim=TRUE, alpha=0.05) {
 		cv <- qt(1-alpha, n-2)
 		cc[abs(rt) < cv] <- NA
 	}
-	cc
+	data.frame(t(cc))
 }
-
-	
