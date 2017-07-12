@@ -5,7 +5,7 @@
 Graphical display of stress and r2 for NMDS ordination along number of dimensions.
 }
 \usage{
-\method{plot}{nmds}(x, plot = TRUE, xlab = "Dimensions", ...)
+\method{plot}{nmds}(x, plot = TRUE, xlab = "Dimensions", \dots)
 }
 
 \arguments{

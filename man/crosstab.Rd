@@ -7,7 +7,7 @@
 }
 \usage{
 crosstab(rowlab, collab, values, type = "sum", data, allrows, allcols,
-na.as.0 = TRUE, check.names = TRUE, ...)
+na.as.0 = TRUE, check.names = TRUE, \dots)
 }
 \arguments{
   \item{rowlab}{ row labels, e.g. site names. }
@@ -25,7 +25,7 @@ na.as.0 = TRUE, check.names = TRUE, ...)
   \item{check.names}{ if FALSE, data frame names are not checked
     for syntactic validity, so that they match the input categories.
     Otherwise make.names() is used to adjust them. }
-  \item{...}{ optional arguments to the function specified in type,
+  \item{\dots}{ optional arguments to the function specified in type,
     such as na.rm=TRUE}
 }
 \details{
