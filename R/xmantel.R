@@ -1,9 +1,10 @@
-xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, mrank = FALSE, nboot = 500, pboot = 0.90, cboot = 0.95)
+xmantel <- function(formula = formula(data), data = sys.parent(), dims = NA, nperm = 1000, mrank = FALSE)
 {
 # Cross-mantel test 
 # Written by Sarah C. Goslee
 # 01/01/01
 # Updated 6 April 2001
+# added to ecodist 10 July 2017
 #
 # formula is y ~ x + n1 + n2 + n3 + ...
 # NOT y ~ x | n1 + n2 + n3 + ... 
@@ -44,49 +45,64 @@ xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, 
 
 
 # Stuff R needs to be able to use a formula
-        call <- match.call()
-        m <- match.call(expand.dots = FALSE)
-        m$family <- m$model <- m$... <- NULL
-        m[[1]] <- as.name("model.frame")
-	m <- m[1:2]
-	m <- eval(m, sys.parent())
-# End of S-Plus stuff. m is now the data for the Mantel test as
-# columns y, x, n1, n2, n3, ...
+    m <- match.call(expand.dots = FALSE)
+    m2 <- match(c("formula", "data"), names(m), nomatch=0)
+    m <- m[c(1, m2)]
+    m[[1]] <- as.name("model.frame")
+    m <- eval(m, parent.frame())
+    m <- as.matrix(m)
+# m is now the data for the Mantel test as
+# cbinded matrices
 
 # Determine the size of the matrices & do some error checking.
 
-    n <- (1 + sqrt(1 + 8 * nrow(m)))/2
-    if(abs(n - round(n)) > 0.0000001)
-		stop("Matrix not square.\n")
-	n <- round(n)
-	if(dim(m)[[2]] < 2)
+    # if dims is NA, matrices are assumed to be square
+    # otherwise dims must be specified
+    nr <- nrow(m)
+    if(is.na(dims[1])) {
+        nc <- nr
+    } else {
+        if(nr != dims[1]) stop("dims doesn't match data \n")
+        nc <- dims[2]
+    }
+    nmat <- ncol(m) / nc
+
+	if(round(nmat) != nmat)
+		stop("Matrices don't match dims. \n")
+
+	if(nmat < 2)
 		stop("Not enough data. \n")
 
 # If there are only x and y, then use the data as is.
 
-	if(dim(m)[[2]] == 2) {
-		ymat <- m[,1]
-		xmat <- m[,2]
+	if(nmat == 2) {
+		ymat <- m[,1:nc]
+		xmat <- m[,(nc+1):ncol(m)]
 		if(mrank) {
 			ymat <- rank(ymat)
 			xmat <- rank(xmat)
 		}
-		ycor <- ymat
-		xcor <- xmat
+		ycor <- as.vector(ymat)
+		xcor <- as.vector(xmat)
 	} else {
 
 # If this is a partial Mantel test, get the regression residuals
 # for y ~ n1 + n2 + n3 + ... and x ~ n1 + n2 + n3 + ...
-	    ymat <- as.vector(m[, 1])
-        omat <- m[, -1]
-            if(mrank) {
-                    ymat <- rank(ymat)
-                    omat <- apply(omat, 2, rank)
-            }
+		ymat <- as.vector(m[,1:nc])
+        omat <- vector(nmat - 1, mode="list")
+        for(i in seq(1, nmat - 1)) {
+            omat[[i]] <- as.vector(m[, seq(i * nc + 1, (i+1) * nc)])
+        }
+        omat <- do.call("cbind", omat)
+
+        if(mrank) {
+            ymat <- rank(ymat)
+            omat <- apply(omat, 2, rank)
+        }
             omat <- cbind(rep(1, length(ymat)), omat)
             xmat <- as.vector(omat[, 2])
             omat <- omat[, -2]
-    omat <- as.matrix(omat)
+            omat <- as.matrix(omat)
             ycor <- lm.fit(omat, ymat)$residuals
             xcor <- lm.fit(omat, xmat)$residuals
 
@@ -98,7 +114,7 @@ xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, 
 
 # Standardize the columns of the matrices so
 # that z = r and we can do 2-tailed tests.
-                ncor <- length(xmat)
+        ncor <- length(xmat)
 
 		w1 <- sum(xmat) / ncor
 		w2 <- sum(xmat ^ 2)
@@ -110,7 +126,7 @@ xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, 
 		w2 <- sqrt(w2 / ncor - w1 ^ 2)
 		ymat <- (ymat - w1) / w2
 
-		if(dim(m)[[2]] > 2) {
+		if(nmat > 2) {
 			for(i in 2:dim(omat)[[2]]){
 				curcoll <- omat[,i]
 				w1 <- sum(curcoll) / ncor
@@ -125,21 +141,24 @@ xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, 
 	if(nperm > 0) {
 
 # Set up the arrays needed.
+
 		zstats <- numeric(nperm)
-		tmat <- xmat
-		rarray <- rep(0, n)      
+		rarray <- rep(0, nr)      
+		carray <- rep(0, nc)      
 
 
-		if(dim(m)[[2]] == 2) {
+		if(nmat == 2) {
              cresults <- .C("xpermute",
                     as.double(xmat),
                     as.double(ymat),
-                    as.integer(n),
+                    as.integer(nr),
+                    as.integer(nc),
                     as.integer(length(xmat)),
                     as.integer(nperm),
                     zstats = as.double(zstats),
-                    as.double(tmat),
+                    as.double(xmat),
                     as.integer(rarray),
+                    as.integer(carray),
                     PACKAGE = "ecodist")
 
 		} else {
@@ -154,12 +173,14 @@ xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, 
 				as.double(as.vector(ymat)),
 				as.double(xcor),
 				as.double(ycor),
-				as.integer(n),
+				as.integer(nr),
+				as.integer(nc),
 				as.integer(length(xmat)),
 				as.integer(nperm),
 				zstats = as.double(zstats),
-				as.double(as.vector(tmat)),
+                as.double(as.vector(ymat)),
 				as.integer(rarray),
+				as.integer(carray),
                 PACKAGE = "ecodist")
 		}
 
@@ -179,49 +200,10 @@ xmantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, 
 	}
 
 
-	if(nboot > 0) {
-
-		if(dim(m)[[2]] == 2) {
-			ycor <- ymat
-			xcor <- xmat
-		} else {
-			xcor <- as.vector(lm.fit(omat, xmat)$residuals)
-			ycor <- as.vector(lm.fit(omat, ymat)$residuals)
-		}
-		bootcor <- numeric(nboot)
-		rarray <- numeric(n)
-		rmat <- rep(1, length(xcor))
-		xdif <- numeric(length(xcor))
-		ydif <- numeric(length(xcor))
-		cresults <- .C("xbootstrap", 
-			as.double(xcor),
-			as.double(ycor),
-			as.integer(n),
-			as.integer(length(xcor)),
-			as.integer(nboot),
-			as.double(pboot),
-			bootcor=as.double(bootcor),
-			as.integer(rarray),
-			as.integer(rmat),
-			as.double(xdif),
-			as.double(ydif),
-            PACKAGE = "ecodist")
-
-		bootcor <- cresults$bootcor
-		bootcor <- sort(bootcor)
-
-		pval <- (1-cboot)/2
-
-		llim <- quantile(bootcor, pval)
-		ulim <- quantile(bootcor, 1-pval)
-	} else {
-		llim <- 0
-		ulim <- 0
-	}
 
 # Return the Mantel r and the p-value.
 
-	unlist(list(mantelr = mantelr, pval1 = pval1, pval2 = pval2, pval3 = pval3, llim = llim, ulim = ulim))
+	unlist(list(mantelr = mantelr, pval1 = pval1, pval2 = pval2, pval3 = pval3))
 
 }
 

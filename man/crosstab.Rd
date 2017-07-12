@@ -2,10 +2,12 @@
 \alias{crosstab}
 \title{ Data formatting }
 \description{
-  Converts field data of the form site, species, observation into a site by species data frame.
+  Converts field data of the form site, species, observation into a site
+  by species data frame.
 }
 \usage{
-crosstab(rowlab, collab, values, type = "sum", data, allrows, allcols, check.names, ...)
+crosstab(rowlab, collab, values, type = "sum", data, allrows, allcols,
+na.as.0 = TRUE, check.names = TRUE, ...)
 }
 \arguments{
   \item{rowlab}{ row labels, e.g. site names. }
@@ -59,7 +61,8 @@ freqdata <- runif(30)
 crosstab(plotnames, speciesnames)
 
 # can use the data argument
-speciesdata <- data.frame(plots = plotnames, species = speciesnames, freq = freqdata, stringsAsFactors=FALSE)
+speciesdata <- data.frame(plots = plotnames, species = speciesnames,
+  freq = freqdata, stringsAsFactors=FALSE)
 
 # mean frequency by species and plot
 crosstab(plots, species, freq, data=speciesdata, type="mean")

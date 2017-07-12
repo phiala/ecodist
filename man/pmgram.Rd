@@ -68,17 +68,19 @@ Y <- row(bump)
 geo.dist <- dist(cbind(as.vector(X), as.vector(Y)))
 value.dist <- dist(as.vector(bump))
 
-### pgram() is time-consuming, so this was generated
+### pmgram() is time-consuming, so this was generated
 ### in advance and saved.
 ### set.seed(1234)
 ### bump.pmgram <- pmgram(value.dist, geo.dist, nperm=10000)
-data(bump.pmgram)
 
+data(bump.pmgram)
 plot(bump.pmgram)
 
 #### Partial pmgram example
 
 # generate a simple surface
+# with complex nonlinear spatial pattern
+
 x <- matrix(1:25, nrow=25, ncol=25, byrow=FALSE)
 y <- matrix(1:25, nrow=25, ncol=25, byrow=TRUE)
 
@@ -90,7 +92,7 @@ z2 <- y - cos(x)
 z1 <- (z1 - min(z1)) / (max(z1) - min(z1))
 z2 <- (z2 - min(z2)) / (max(z2) - min(z2))
 
-z12 <- (z1 + z2)/2
+z12 <- (z1 + z2*2)/3
 
 # look at patterns
 
@@ -117,25 +119,23 @@ space <- cbind(as.vector(x), as.vector(y))
 space.d <- dist(space)
 
 # take partial correlogram without effects of z1
-### pgram() is time-consuming, so this was generated
+### pmgram() is time-consuming, so this was generated
 ### in advance and saved.
 ### set.seed(1234)
-### z.no <- pgram(z12.d, space.d, nperm=10000, resids=TRUE)
+### z.no <- pmgram(z12.d, space.d, nperm=1000, resids=FALSE)
 ### save(z.no, file="ecodist/data/z.no.rda")
 data(z.no)
 plot(z.no)
-summary(residuals(z.no))
 
 
 # take partial correlogram of z12 given z1
-### pgram() is time-consuming, so this was generated
+### pmgram() is time-consuming, so this was generated
 ### in advance and saved.
 ### set.seed(1234)
-### z.z1 <- pmgram(z12.d, space.d, z2.d, nperm=10000, resids=TRUE)
+### z.z1 <- pmgram(z12.d, space.d, z2.d, nperm=1000, resids=FALSE)
 ### save(z.z1, file="ecodist/data/z.z1.rda")
 data(z.z1)
 plot(z.z1)
-summary(residuals(z.z1))
 
 }
 \keyword{ multivariate }

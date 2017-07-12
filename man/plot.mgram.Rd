@@ -44,8 +44,8 @@ data(graze)
 space.d <- dist(graze$sitelocation)
 forest.d <- dist(graze$forestpct)
 
-grasses <- graze[, colnames(graze) %in% c("DAGL", "LOAR10", "LOPE", "POPR")]
-legumes <- graze[, colnames(graze) %in% c("LOCO6", "TRPR2", "TRRE3")]
+grasses <- graze[, colnames(graze) \%in\% c("DAGL", "LOAR10", "LOPE", "POPR")]
+legumes <- graze[, colnames(graze) \%in\% c("LOCO6", "TRPR2", "TRRE3")]
 
 grasses.bc <- bcdist(grasses)
 legumes.bc <- bcdist(legumes)

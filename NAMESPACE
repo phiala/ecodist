@@ -1,6 +1,6 @@
 ## Functions
 export(bcdist, distance, fixdmat)
-export(mantel, mgram, pmgram, MRM)
+export(mantel, mgroup, mgram, pmgram, MRM)
 export(cor2m, corgen, crosstab, full, lower)
 export(pco, nmds, nmds.min, min.nmds, vf, addord)
 export(plot.vf, plot.mgram, plot.nmds, residuals.mgram)
@@ -14,5 +14,5 @@ S3method(plot, vf)
 S3method(plot, mgram)
 S3method(residuals, mgram)
 ## Compiled code
-useDynLib(ecodist)
+useDynLib(ecodist, .registration = TRUE)
 

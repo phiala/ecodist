@@ -326,7 +326,7 @@ RANDOUT;
 
 
 
-void bcdist(double *x, int *pnrow, int *pncol, double *dist)
+void bcdistc(double *x, int *pnrow, int *pncol, double *dist)
 {
 int i, j, k, l;
 int nrow, ncol;
@@ -841,13 +841,15 @@ RANDOUT;
 
 }
 
-void xpermute(double *x, double *y, long *n, long *xlen, long *nperm, double *zstats, double *tmat, long *rarray)
+
+void xpermute(double *x, double *y, int *nrow, int *ncol, int *xlen, int *nperm, double *zstats, double *newx, int *rarray, int *carray)
 
 {
 
-long i, k, l, m;
+int i, k, l, m;
 double cumsum;
-long temp;
+int temp;
+int newk, newl;
 
 
 /* Set random seed using Splus function */
@@ -855,6 +857,7 @@ long temp;
 RANDIN;
 
 /* Calculate first z-statistic (unpermuted data). */
+
 
 cumsum = 0;
 
@@ -869,16 +872,25 @@ zstats[0] = cumsum;
 
 for(i = 1; i < *nperm; i++) {
 
+cumsum = 0;
+
 /* Set up rarray. */
 
-   for(k = 0; k < *n; k++) {
+   for(k = 0; k < *nrow; k++) {
       rarray[k] = k;
+   }
+
+
+/* Set up carray. */
+
+   for(k = 0; k < *ncol; k++) {
+      carray[k] = k;
    }
 
 /* Randomize rarray using an Splus function. */
 
-   for(k = 0; k < (*n - 1); k++) {
-      l = *n - k - 1;
+   for(k = 0; k < (*nrow - 1); k++) {
+      l = *nrow - k - 1;
       m = (long)((float)l * UNIF);
       if(m > l) m = l;
       temp = rarray[l];
@@ -886,14 +898,61 @@ for(i = 1; i < *nperm; i++) {
       rarray[m] = temp;
    }
 
+
+/* Randomize carray using an Splus function. */
+
+   for(k = 0; k < (*ncol - 1); k++) {
+      l = *ncol - k - 1;
+      m = (long)((float)l * UNIF);
+      if(m > l) m = l;
+      temp = carray[l];
+      carray[l] = carray[m];
+      carray[m] = temp;
+   }
+
 /* Reorder x. */
 
-   for(k = 0; k < *n; k++) {
-      for(l = 0; l <= k; l++) {
-         x[k * *n + l] = tmat[rarray[k] * *n + rarray[l]];
-         x[l * *n + k] = tmat[rarray[l] * *n + rarray[k]];
-      }
+	/* loop thru the rows
+	 * swapping each value with its replacement */
+
+   for(k = 0; k < *nrow; k++) {
    }
+
+
+	for(l = 0; l < *nrow; l++) {
+		newl = rarray[l];
+		if(newl != l) {
+			for(k = 0; k < *ncol; k++) {
+				newx[k*(*nrow) + l] = x[k*(*nrow) + newl];
+			}
+		}
+	}
+
+	/* now x has the original info and newx has swapped rows */
+	/* go thru x and set x identical to newx before swapping columns */
+
+
+	for(k = 0; k < *ncol; k++) {
+		for(l = 0; l < *nrow; l++) {
+			x[k*(*nrow) + l] = newx[k*(*nrow) + l];
+		}
+	}
+
+
+	/* loop thru the columns
+	 * swapping each value with its replacement */
+
+   for(k = 0; k < *ncol; k++) {
+   }
+
+	for(k = 0; k < *ncol; k++) {
+		newk = carray[k];
+		if(newk != k) {
+			for(l = 0; l < *nrow; l++) {
+				newx[k*(*nrow) + l] = x[newk*(*nrow) + l];
+			}
+		}
+	}
 
 
 /* Calculate new sum of products. */
@@ -915,13 +974,16 @@ RANDOUT;
 
 }
 
-void xpermpart(double *hmat, double *y, double *xcor, double *ycor, long *n, long *xlen, long *nperm, double *zstats, double *tmat, long *rarray)
+
+
+void xpermpart(double *hmat, double *y, double *xcor, double *ycor, int *nrow, int *ncol, int *xlen, int *nperm, double *zstats, double *newy, int *rarray, int *carray)
 
 {
 
-long i, k, l, m;
+int i, k, l, m;
 double cumsum;
-long temp;
+int temp;
+int newk, newl;
 
 
 /* Set random seed using Splus function */
@@ -933,7 +995,6 @@ RANDIN;
 for(k = 0; k < *xlen; k++) {
    ycor[k] = 0;
 }
-
 
 for(k = 0; k < *xlen; k++) {
    for(l = 0; l < *xlen; l++) {
@@ -959,14 +1020,21 @@ for(i = 1; i < *nperm; i++) {
 
 /* Set up rarray. */
 
-   for(k = 0; k < *n; k++) {
+   for(k = 0; k < *nrow; k++) {
       rarray[k] = k;
+   }
+
+
+/* Set up carray. */
+
+   for(k = 0; k < *ncol; k++) {
+      carray[k] = k;
    }
 
 /* Randomize rarray using an Splus function. */
 
-   for(k = 0; k < (*n - 1); k++) {
-      l = *n - k - 1;
+   for(k = 0; k < (*nrow - 1); k++) {
+      l = *nrow - k - 1;
       m = (long)((float)l * UNIF);
       if(m > l) m = l;
       temp = rarray[l];
@@ -974,14 +1042,67 @@ for(i = 1; i < *nperm; i++) {
       rarray[m] = temp;
    }
 
+
+/* Randomize carray using an Splus function. */
+
+   for(k = 0; k < (*ncol - 1); k++) {
+      l = *ncol - k - 1;
+      m = (long)((float)l * UNIF);
+      if(m > l) m = l;
+      temp = carray[l];
+      carray[l] = carray[m];
+      carray[m] = temp;
+   }
+
+
+
 /* Reorder y. */
 
-   for(k = 0; k < *n; k++) {
-      for(l = 0; l <= k; l++) {
-         y[k * *n + l] = tmat[rarray[k] * *n + rarray[l]];
-         y[l * *n + k] = tmat[rarray[l] * *n + rarray[k]];
-      }
+
+	/* loop thru the rows
+	 * swapping each value with its replacement */
+
+   for(k = 0; k < *nrow; k++) {
    }
+
+
+	for(l = 0; l < *nrow; l++) {
+		newl = rarray[l];
+		if(newl != l) {
+			for(k = 0; k < *ncol; k++) {
+				newy[k*(*nrow) + l] = y[k*(*nrow) + newl];
+			}
+		}
+	}
+
+	/* now y has the original info and newy has swapped rows */
+	/* go thru y and set y identical to newy before swapping columns */
+
+
+	for(k = 0; k < *ncol; k++) {
+		for(l = 0; l < *nrow; l++) {
+			y[k*(*nrow) + l] = newy[k*(*nrow) + l];
+		}
+	}
+
+
+	/* loop thru the columns
+	 * swapping each value with its replacement */
+
+   for(k = 0; k < *ncol; k++) {
+   }
+
+	for(k = 0; k < *ncol; k++) {
+		newk = carray[k];
+		if(newk != k) {
+			for(l = 0; l < *nrow; l++) {
+				newy[k*(*nrow) + l] = y[newk*(*nrow) + l];
+			}
+		}
+	}
+
+
+
 
 
 /* Calculate residuals for y */
@@ -1007,106 +1128,6 @@ for(k = 0; k < *xlen; k++) {
    }
 
    zstats[i] = cumsum;
-
-}
-
-/* Reset random seed using an Splus function. */
-
-RANDOUT;
-
-}
-
-
-void xbootstrap(double *x, double *y, long *n, long *xlen, long *nboot, double *pboot, double *bootcor, long *rarray, long *rmat, double *xdif, double *ydif)
-
-{
-
-long i, j, k;
-double r;
-double nsamp;
-double xmean, ymean;
-double xsum;
-double xxsum, yysum;
-
-
-/* Set random seed using Splus function */
-
-RANDIN;
-
-
-for(i = 0; i < *nboot; i++) {
-
-/* Set up rarray. */
-
-   for(j = 0; j < *n; j++) {
-      r = UNIF;
-      if(r > *pboot)
-         rarray[j] = 0;
-      else rarray[j] = 1;
-   }
-
-/* Turn rarray into a square sampling matrix. */
-/* 1 means include, 0 means omit. */
-
-   for(j = 0; j < *xlen; j++) {
-      rmat[j] = 1;
-   }
-
-   for(j = 0; j < *n; j++) {
-      for(k = 0; k <= j; k++) {
-         if(rarray[j] == 0 || rarray[k] == 0) {
-            rmat[j * *n + k] = 0;
-            rmat[k * *n + j] = 0;
-         }
-      }
-   }
-
-   nsamp = 0;
-   for(j = 0; j < *xlen; j++) {
-      nsamp += rmat[j];
-   }
-
-
-/* Calculate means for x and y. */
-
-   xmean = 0;
-   ymean = 0;
-   for(j = 0; j < *xlen; j++) {
-      if(rmat[j] == 1) {
-         xmean += x[j];
-         ymean += y[j];
-      }
-   }
-   xmean = xmean/nsamp;
-   ymean = ymean/nsamp;
-
-/* Calculate deviations for x and y. */
-
-   for(j = 0; j < *xlen; j++) {
-      if(rmat[j] == 1) {
-         xdif[j] = x[j] - xmean;
-         ydif[j] = y[j] - ymean;
-      }
-      else {
-         xdif[j] = 0;
-         ydif[j] = 0;
-      }
-   }
-
-
-   xsum = 0;
-   xxsum = 0; 
-   yysum = 0;
-
-   for(j = 0; j < *xlen; j++) {
-      if(rmat[j] == 1) {
-         xsum += (xdif[j] * ydif[j]);
-         xxsum += (xdif[j] * xdif[j]);
-         yysum += (ydif[j] * ydif[j]);
-      }
-   }
-
-   bootcor[i] = (xsum) / sqrt(xxsum * yysum);
 
 }
 

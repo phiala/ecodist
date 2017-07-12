@@ -40,7 +40,8 @@ setosa.md <- full(distance(iris[iris$Species == "setosa", 1:4], "mahal"))
 setosa.md[1, 2] # Mahalanobis distance between samples 1 and 2 
 
 # use the covariance matrix for the full dataset to scale for one species
-setosa.scaled.md <- full(distance(iris[iris$Species == "setosa", 1:4], "mahal", icov=var(iris[,1:4])))
+setosa.scaled.md <- full(distance(iris[iris$Species == "setosa", 1:4],
+  "mahal", icov=var(iris[,1:4])))
 setosa.scaled.md[1, 2] # Mahalanobis distance between samples 1 and 2 
 
 }

@@ -7,12 +7,18 @@ xdistance <- function(x, y, method = "euclidean") {
 
 	# Sarah Goslee 2017-02-17, modified from legacy Splus code dated 01/01/01
 
+    if(is.null(ncol(x))) {
+        x <- matrix(x, ncol=1)
+        rownames(x) <- seq_len(nrow(x))
+    }
+    if(is.null(ncol(y))) {
+        y <- matrix(y, ncol=1)
+        rownames(y) <- seq_len(nrow(y))
+    }
+
 
 	if(!(ncol(x) == ncol(y)))
 		stop("Matrices must have the same number of columns\n")
-
-	if(!(nrow(x) == nrow(y)))
-		warning("Non-square output cannot be used in xmantel\n")
 
 	x.names <- paste0("x", row.names(x))
 	y.names <- paste0("y", row.names(y))

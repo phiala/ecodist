@@ -7,7 +7,7 @@
 # dlu
 #
 
-mgroup <- function(edist, groups, nperm=10000)  
+mgroup <- function(edist, groups, nperm=1000)  
 {
 	nl <- ncol(groups)
     if(is.null(nl)) {
@@ -30,7 +30,6 @@ mgroup <- function(edist, groups, nperm=10000)
 		cl <- length(unique(groups[,i]))
 		# create group contrast:
 		gdist <- dist(thisgroups)
-
 		gdist[gdist > 0] <- 1
 
 		# run mantel:

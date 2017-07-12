@@ -18,7 +18,7 @@ bcdist <- function(x, rmzero = FALSE)
 	}
 	dist.v <- rep(0, (nrow(x) * (nrow(x) - 1))/2)	
 
-   cresults <- .C("bcdist",
+   cresults <- .C("bcdistc",
 		as.double(as.vector(t(x))),
 		as.integer(nrow(x)),
 		as.integer(ncol(x)),

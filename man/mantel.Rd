@@ -21,8 +21,13 @@ mantel(formula = formula(data), data = sys.parent(), nperm = 1000,
   \item{cboot}{ the level of the confidence limits to estimate. }
 }
 \details{
-  If only one independent variable is given, the simple Mantel r (r12) is calculated. If more than one independent variable is given, the partial Mantel r  (ryx|x1 ...) is calculated by permuting one of the original dissimilarity matrices.
-The bootstrapping is actually resampling without replacement, because duplication of samples is not useful in a dissimilarity context (the dissimilarity of a sample with itself is zero). Resampling within dissimilarity values is inappropriate, just as for permutation.
+  If only one independent variable is given, the simple Mantel r (r12) is calculated. If 
+  more than one independent variable is given, the partial Mantel r  (ryx|x1 ...) is 
+  calculated by permuting one of the original dissimilarity matrices.
+The bootstrapping is actually resampling without replacement, because duplication of 
+samples is not useful in a dissimilarity context (the dissimilarity of a sample with 
+itself is zero). Resampling within dissimilarity values is inappropriate, just as for 
+permutation.
 }
 \value{
   \item{mantelr }{Mantel coefficient.}
@@ -32,33 +37,35 @@ The bootstrapping is actually resampling without replacement, because duplicatio
   \item{llim }{lower confidence limit.}
   \item{ulim }{upper confidence limit.}
 }
-\references{ Mantel, N. 1967. The detection of disease clustering and a generalized regressio
-n
-approach. Cancer Research 27:209-220.
+\references{ Mantel, N. 1967. The detection of disease clustering and a generalized
+regression approach. Cancer Research 27:209-220.
 
-Smouse, P.E., J.C. Long and R.R. Sokal. 1986. Multiple regression and correlatio
-n
+Smouse, P.E., J.C. Long and R.R. Sokal. 1986. Multiple regression and correlation
 extensions of the Mantel test of matrix correspondence. Systematic Zoology 35:62
 7-632.
 
-Goslee, S.C. and Urban, D.L. 2007. The ecodist package for dissimilarity-based analysis of ecological data. Journal of Statistical Software 22(7):1-19.
+Goslee, S.C. and Urban, D.L. 2007. The ecodist package for dissimilarity-based analysis
+of ecological data. Journal of Statistical Software 22(7):1-19.
 
-Goslee, S.C. 2010. Correlation analysis of dissimilarity matrices. Plant Ecology 206(2):279-286.
+Goslee, S.C. 2010. Correlation analysis of dissimilarity matrices. Plant
+Ecology 206(2):279-286.
 
 }
 \author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
 
 \seealso{ \code{\link{mgram}}, \code{\link{mgroup}} }
 \examples{
-data(graze)
-space.d <- dist(graze$sitelocation)
-forest.d <- dist(graze$forestpct)
 
-grasses <- graze[, colnames(graze) %in% c("DAGL", "LOAR10", "LOPE", "POPR")]
-legumes <- graze[, colnames(graze) %in% c("LOCO6", "TRPR2", "TRRE3")]
+data(graze)
+
+grasses <- graze[, colnames(graze) \%in\% c("DAGL", "LOAR10", "LOPE", "POPR")]
+legumes <- graze[, colnames(graze) \%in\% c("LOCO6", "TRPR2", "TRRE3")]
 
 grasses.bc <- bcdist(grasses)
 legumes.bc <- bcdist(legumes)
+
+space.d <- dist(graze$sitelocation)
+forest.d <- dist(graze$forestpct)
 
 # Mantel test: is the difference in forest cover between sites
 # related to the difference in grass composition between sites?
