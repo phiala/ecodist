@@ -44,7 +44,7 @@ species composition) at a particular lag distance.
 }
 \references{ Legendre, P. and M. Fortin. 1989. Spatial pattern and ecological analysis.
 Vegetatio 80:107-138. }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{mantel}}, \code{\link{plot.mgram}}, \code{\link{pmgram}} }
 \examples{

@@ -10,6 +10,7 @@
 See \code{\link{pmgram}} for current format specification.
 }
 
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{bump}}, \code{\link{pmgram}} }
 

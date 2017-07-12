@@ -50,7 +50,7 @@ will be returned.
   data frame with rowlab as row headings, collab as columns,
   and values as the data.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 \examples{
 # Make a random example
 plotnames <- rep(1:5, each = 6)

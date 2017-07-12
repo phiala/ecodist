@@ -12,6 +12,7 @@ The format of this object is a list with:
   stress: goodness of fit for each point.
   isTrain: logical vector indicating whether each point was used in the original ordination. 
 }
+\author{ Sarah Goslee }
 \seealso{ \code{\link{nmds}}, \code{\link{addord}} }
 \examples{
 data(iris)

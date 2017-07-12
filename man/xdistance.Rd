@@ -22,7 +22,7 @@ This function will calculate rowwise dissimilarities between any pair of matrice
 \value{
 A non-symmetric and possibly not square matrix of dissimilarities of class \code{xdist}, where \code{result <- xdistance(x, y)} produces a matrix with \code{result[a, b]} containing the dissimilarity between \code{x[a, ]} and \code{y[b, ]}.
 }
-\author{ Sarah Goslee <Sarah.Goslee@ars.usda.gov> }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{distance}}, \code{\link{xmantel}}, \code{\link{xmgram}}}
 \examples{

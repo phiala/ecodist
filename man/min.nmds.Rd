@@ -22,7 +22,7 @@ coordinates). The stress and r^2 for the minimum stress configuration are stored
 \details{
 	For back-compatibility, the \code{nmds.min} function remains.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{nmds}} }
 \examples{

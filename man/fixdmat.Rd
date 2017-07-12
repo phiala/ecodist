@@ -20,7 +20,7 @@ to column order.
 \value{
   full symmetric distance matrix.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 \seealso{ \code{\link{lower}},  \code{\link{full}} }
 \examples{
 x.vec <- seq_len(6)

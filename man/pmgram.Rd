@@ -48,7 +48,7 @@ The comparisons in \code{vignette("dissimilarity", package="ecodist")} may help.
   \item{pval }{two-sided p-value.}
   resids is a vector of the residuals (if calculated) and can be accessed with the \code{residuals()} method.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{mgram}}, \code{\link{mantel}}, \code{\link{residuals.mgram}}, \code{\link{plot.mgram}} }
 \examples{

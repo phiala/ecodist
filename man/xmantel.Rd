@@ -28,7 +28,7 @@ xmantel(formula = formula(data), data = sys.parent(), dims = NA,
   \item{pval3 }{two-tailed p-value (null hypothesis: r = 0).}
 }
 
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{  \code{\link{xdistance}}, \code{\link{xmgram}} }
 \examples{

@@ -41,9 +41,7 @@ addord(origconf, fulldat, fulldist, isTrain, bfstep = 10, maxit = 50, epsilon = 
   \item{stress }{The stress value for each point.}
   \item{isTrain }{The boolean vector indicating training set membership, for reference.}
 }
-\author{
-  Sarah Goslee <Sarah.Goslee@ars.usda.gov>
-}
+\author{ Sarah Goslee }
 
 \examples{
 data(iris)

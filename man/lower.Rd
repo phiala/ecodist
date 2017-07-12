@@ -21,7 +21,7 @@ while \code{full()} used on a single element will return a 2x2 matrix.
 \value{
   column order lower triangular matrix.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{full}}, \code{\link{fixdmat}} }
 

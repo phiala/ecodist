@@ -19,7 +19,7 @@
 \value{
   draws a plot (graphics device must be active).
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{mgram}} }
 \examples{

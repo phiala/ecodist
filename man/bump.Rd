@@ -13,7 +13,7 @@
   ..$ : chr [1:25] "1" "3" "5" "7" ...
   ..$ : chr [1:25] "V1" "V3" "V5" "V7" ...
 }
-
+\author{ Sarah Goslee }
 \seealso{ \code{\link{bump.pmgram}}, \code{\link{pmgram}} }
 
 \examples{

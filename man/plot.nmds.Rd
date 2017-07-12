@@ -17,7 +17,7 @@ Graphical display of stress and r2 for NMDS ordination along number of dimension
 \value{
   Produces a two-panel plot with stress and r2 for ordination by number of dimensions. Points show the mean value; lines indicate minimum and maximum.
   }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Dean Urban }
 
 \seealso{ \code{\link{nmds}}}
 \examples{

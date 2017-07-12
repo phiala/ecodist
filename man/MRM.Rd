@@ -34,7 +34,7 @@ Lichstein, J. 2007. Multiple regression on distance matrices: A multivariate spa
 Legendre, P.; Lapointe, F. and Casgrain, P. 1994. Modeling brain evolution from behavior: A permutational regression approach. Evolution 48: 1487-1499.
  }
 
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 \seealso{ \code{\link{mantel}} }
 
 \examples{

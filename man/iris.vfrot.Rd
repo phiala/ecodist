@@ -9,6 +9,7 @@
 \format{
 See \code{\link{vf}} for current format specification.
 }
+\author{ Sarah Goslee }
 \seealso{ \code{\link{nmds}},  \code{\link{vf}} }
 \examples{
 data(iris)

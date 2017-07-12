@@ -9,6 +9,7 @@
 \format{
 See \code{\link{pmgram}} for current format specification.
 }
+\author{ Sarah Goslee }
 \seealso{ \code{\link{pmgram}}, \code{\link{z.z1}}, }
 \examples{
 #### Partial pmgram example

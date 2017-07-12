@@ -51,7 +51,7 @@ Goslee, S.C. 2010. Correlation analysis of dissimilarity matrices. Plant
 Ecology 206(2):279-286.
 
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{mgram}}, \code{\link{mgroup}} }
 \examples{

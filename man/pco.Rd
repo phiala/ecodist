@@ -22,7 +22,7 @@ rounding to that number of places. }
   \item{values }{eigenvalue for each component. This is a measure of the variance explained by each dimension.}
   \item{vectors }{eigenvectors. Each column contains the scores for that dimension.}
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{princomp}}, \code{\link{nmds}} }
 \examples{

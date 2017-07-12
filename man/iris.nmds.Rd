@@ -12,6 +12,7 @@
 See \code{\link{nmds}} for current format specification.
 }
 
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{nmds}} }
 

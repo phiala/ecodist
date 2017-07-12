@@ -52,6 +52,7 @@
 
   Goslee, S.C., Sanderson, M.A. 2010. Landscape Context and Plant Community Composition in Grazed Agricultural Systems. Landscape Ecology 25:1029-1039.
 }
+\author{ Sarah Goslee }
 \examples{
 data(graze)
 }

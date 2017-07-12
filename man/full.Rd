@@ -20,7 +20,7 @@ while \code{full()} used on a single element will return a 2x2 matrix.
 \value{
   full symmetric matrix.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{lower}}, \code{\link{fixdmat}} }
 

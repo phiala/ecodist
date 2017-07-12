@@ -16,7 +16,7 @@ distances are calculated. Otherwise, the distance between two empty rows is assu
 \value{
   This function returns a column-order lower-triangular distance matrix. The returned object has an attribute, Size, giving the number of objects, that is, nrow(x). The length of the vector that is returned is nrow(x)*(nrow(x)-1)/2. 
   }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{dist}},  \code{\link{distance}}}
 \examples{

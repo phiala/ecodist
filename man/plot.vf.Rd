@@ -18,7 +18,7 @@ Add vector fitting arrows to an existing ordination plot.
 \value{
   Adds arrows to an existing ordination plot. Only arrows with a p-value less than pval are added. By default, all variables are shown.
   }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{vf}}}
 \examples{

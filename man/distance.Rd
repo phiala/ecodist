@@ -22,7 +22,7 @@ species). Distances will be calculated for each pair of rows. }
   Returns a lower-triangular distance matrix as an object of class "dist".
 
 }
-\author{ Sarah Goslee <Sarah.Goslee@ars.usda.gov> }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{dist}},  \code{\link{bcdist}} }
 \examples{

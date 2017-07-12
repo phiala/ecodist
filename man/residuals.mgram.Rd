@@ -16,7 +16,7 @@
 \value{
   vector of residuals.
 }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{pmgram}}, \code{\link{mgram}}  }
 \examples{

@@ -35,7 +35,7 @@ nmds(dmat, mindim = 1, maxdim = 2, nits = 10, iconf, epsilon = 1e-12,
 nonmetric hypothesis. Psychometrika 29:1-27.
 
 Minchin, P.R. 1987. An evaluation of the relative robustness of techniques for ecological ordination. Vegetatio 96:89-108. }
-\author{ Sarah Goslee, Sarah.Goslee@ars.usda.gov }
+\author{ Sarah Goslee }
 
 \seealso{ \code{\link{plot.nmds}}, \code{\link{min.nmds}}, \code{\link{vf}}, \code{\link{addord}} }
 \examples{
