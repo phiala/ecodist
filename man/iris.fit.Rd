@@ -36,8 +36,8 @@ iris.new <- structure(list(Sepal.Length = c(4.6, 4.9, 5.4, 5.2, 6, 6.5, 6,
 5.7), Petal.Width = c(0.26, 0.26, 0.26, 1.2, 1.3, 1.4, 1.8, 2, 
 2), Species = structure(c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L), .Label = c("setosa", 
 "versicolor", "virginica"), class = "factor")), .Names = c("Sepal.Length", 
-"Sepal.Width", "Petal.Length", "Petal.Width", "Species"), class = "data.frame", row.names = c(NA, 
--9L))
+"Sepal.Width", "Petal.Length", "Petal.Width", "Species"), class = "data.frame",
+row.names = c(NA, -9L))
 
 # provide a dist object containing original and new data
 # provide a logical vector indicating which samples were used to
@@ -54,7 +54,8 @@ is.orig <- c(rep(TRUE, nrow(iris)), rep(FALSE, nrow(iris.new)))
 ### save(iris.fit, file="ecodist/data/iris.fit.rda")
 data(iris.fit)
 
-plot(iris.fit$conf, col=iris.full$Species, pch=c(18, 4)[is.orig + 1], xlab="NMDS 1", ylab="NMDS 2")
+plot(iris.fit$conf, col=iris.full$Species, pch=c(18, 4)[is.orig + 1],
+    xlab="NMDS 1", ylab="NMDS 2")
 title("Demo: adding points to an ordination")
 legend("bottomleft", c("Training set", "Added point"), pch=c(4, 18))
 legend("topright", levels(iris$Species), fill=1:3)

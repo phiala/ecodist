@@ -1,7 +1,7 @@
 ---
 title: "Dissimilarity Cheat Sheet"
 author: "Sarah Goslee"
-date: "r Sys.Date()"
+date: "2017-07-12"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Dissimilarity Cheat Sheet}
