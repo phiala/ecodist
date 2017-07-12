@@ -13,4 +13,5 @@ Dissimilarity-based analysis functions including ordination and Mantel test func
   - added logistic regression to MRM
   - added xdistance cross-distance function, and cross-dissimilarity analysis functions xmantel, xmgram
   - updated examples in help files to be more helpful
+  - added a vignette listing dissimilarity-based analyses
 
