@@ -39,14 +39,17 @@ Legendre, P.; Lapointe, F. and Casgrain, P. 1994. Modeling brain evolution from 
 
 \examples{
 
-data(graze)
+  data(graze)
 
-# This grass is related to forest cover but not location
-MRM(dist(LOAR10) ~ dist(sitelocation) + dist(forestpct), data=graze, nperm=100)
+  # Abundance of this grass is related to forest cover but not location
+  MRM(dist(LOAR10) ~ dist(sitelocation) + dist(forestpct), data=graze, nperm=10)
 
-# This legume is related to location but not forest cover
-MRM(dist(TRRE3) ~ dist(sitelocation) + dist(forestpct), data=graze, nperm=100)
+  # Abundance of this legume is related to location but not forest cover
+  MRM(dist(TRRE3) ~ dist(sitelocation) + dist(forestpct), data=graze, nperm=10)
 
+  # Compare to presence/absence of grass LOAR10 using logistic regression
+  LOAR10.presence <- ifelse(graze$LOAR10 > 0, 1, 0)
+  MRM(dist(LOAR10.presence) ~ dist(sitelocation) + dist(forestpct), data=graze, nperm=10, method="logistic")
 }
 
 \keyword{ multivariate }
