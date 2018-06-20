@@ -111,6 +111,10 @@ MRM <- function(formula = formula(data), data = sys.parent(), nperm = 1000, meth
         results <- list(coef=cbind(b, pval=b.pval), r.squared=c(R2=R2, pval = R2.pval),F.test=c(F=F, F.pval = F.pval))
     } else {
         if(method == "logistic") {
+             # extract data from formula object
+             X <- m[ ,2:ncol(m), drop=FALSE]
+             Y <- m[ ,1, drop=FALSE]
+             
              colnames(Y) <- "Y"
              newdata <- data.frame(Y=Y, X)
              fit1 <- glm(Y ~ ., data=newdata, family=binomial(link = "logit"))
