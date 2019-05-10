@@ -25,7 +25,7 @@ mrank = FALSE)
   \item{coef }{A matrix with regression coefficients and associated p-values from the permutation test (using the pseudo-t of Legendre et al. 1994).}
   \item{r.squared }{Regression R-squared and associated p-value from the permutation test (linear only). }
   \item{F.test }{F-statistic and p-value for overall F-test for lack of fit (linear only).}
-  \item{dev }{Residual deviance, degrees of freetom, and associated p-value (logistic only).}
+  \item{dev }{Residual deviance, degrees of freedom, and associated p-value (logistic only).}
 }
 
 \references{
