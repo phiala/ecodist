@@ -30,7 +30,7 @@ xdistance <- function(x, y, method = "euclidean") {
 	d <- full(distance(d, method=method))
 
 
-	d <- d[seq(1, nrow(x)), seq(nrow(x) + 1, nrow(x) + nrow(y))]
+	d <- d[seq(1, nrow(x)), seq(nrow(x) + 1, nrow(x) + nrow(y)), drop=FALSE]
 	rownames(d) <- x.names
 	colnames(d) <- y.names
 
