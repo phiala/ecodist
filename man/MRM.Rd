@@ -6,8 +6,8 @@
 }
 
 \usage{
-MRM(formula = formula(data), data = sys.parent(), nperm = 1000, method = "linear",
-mrank = FALSE)
+MRM(formula = formula(data), data = sys.parent(), nperm = 1000,
+	method = "linear", mrank = FALSE)
 }
 
 \arguments{
@@ -49,7 +49,8 @@ Legendre, P.; Lapointe, F. and Casgrain, P. 1994. Modeling brain evolution from 
 
   # Compare to presence/absence of grass LOAR10 using logistic regression
   LOAR10.presence <- ifelse(graze$LOAR10 > 0, 1, 0)
-  MRM(dist(LOAR10.presence) ~ dist(sitelocation) + dist(forestpct), data=graze, nperm=10, method="logistic")
+  MRM(dist(LOAR10.presence) ~ dist(sitelocation) + dist(forestpct), 
+  	data=graze, nperm=10, method="logistic")
 }
 
 \keyword{ multivariate }

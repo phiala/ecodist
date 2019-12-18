@@ -3,11 +3,11 @@ Version: 2.0.3
 Date: 2019-12-18
 Title: Dissimilarity-Based Functions for Ecological Analysis
 Authors@R: c(person("Sarah", "Goslee", role = c("aut", "cre"),
-                     email = "Sarah.Goslee@ars.usda.gov"),
+                     email = "Sarah.Goslee@usda.gov"),
               person("Dean", "Urban", role = "aut"))
 Author: Sarah Goslee [aut, cre],
 	Dean Urban [aut]
-Maintainer: Sarah Goslee <Sarah.Goslee@ars.usda.gov>
+Maintainer: Sarah Goslee <Sarah.Goslee@usda.gov>
 Depends: R (>= 3.0.0)
 LazyData: true
 Imports: stats, graphics
