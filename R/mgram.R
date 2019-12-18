@@ -23,8 +23,8 @@ mgram <- function(species.d, space.d, breaks, nclass, stepsize, nperm = 1000, mr
 # If nclass or stepsize aren't specified, use Sturge's rule to calculate nclass
 # classes are shifted so that they don't have to start with zero
     if(missing(breaks)) {
-        if (missing(nclass)) {
-            if (missing(stepsize)) {
+        if(missing(nclass)) {
+            if(missing(stepsize)) {
                 nclass <- round(1 + 3.3 * log10(length(space.d)))
                 stepsize <- (max(space.d) - min(space.d))/nclass
             }
@@ -33,7 +33,7 @@ mgram <- function(species.d, space.d, breaks, nclass, stepsize, nperm = 1000, mr
             }
         }
         else {
-            if (missing(stepsize)) {
+            if(missing(stepsize)) {
                 stepsize <- (max(space.d) - min(space.d))/nclass
             }
         }

@@ -4,7 +4,7 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 
 	epsilon <- 0.0000001
 
-	if( class(data) == "dist") {
+	if(inherits(class(data), "dist")) {
 		data <- as.matrix(as.vector(data))
 	}
 	else {
