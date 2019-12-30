@@ -13,6 +13,6 @@ LazyData: true
 Imports: stats, graphics
 Suggests: knitr, testthat
 VignetteBuilder: knitr
-Description: Dissimilarity-based analysis functions including ordination and Mantel test functions, intended for use with spatial and community data.
+Description: Dissimilarity-based analysis functions including ordination and Mantel test functions, intended for use with spatial and community data. The original package description is in Goslee and Urban (2007) <doi:10.18637/jss.v022.i07>, with further statistical detail in Goslee (2010) <doi:10.1007/s11258-009-9641-0>.
 License: GPL (>= 2)
 BugReports: https://github.com/phiala/ecodist/issues
