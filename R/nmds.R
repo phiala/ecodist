@@ -24,23 +24,23 @@
 
 sstress <- function(dmat, newconf)
 {
-	# Calculates the stress-1 function for the original and
-	# new NMDS configurations (Kruskal 1964).
+    # Calculates the stress-1 function for the original and
+    # new NMDS configurations (Kruskal 1964).
 
     # Calculate stress based on isotonic regression
     # of distance matrices
-	# uses stats::isoreg instead of MASS::Shepard
+    # uses stats::isoreg instead of MASS::Shepard
 
-	dmat <- as.vector(dmat)
-	dord <- order(dmat)
-	cmat <- as.vector(dist(newconf, "minkowski", 2))
+    dmat <- as.vector(dmat)
+    dord <- order(dmat)
+    cmat <- as.vector(dist(newconf, "minkowski", 2))
 
-	dmat <- dmat[dord]
-	cmat <- cmat[dord]
+    dmat <- dmat[dord]
+    cmat <- cmat[dord]
 
-	ir <- isoreg(dmat, cmat)
-	dmat <- ir$y
-	cmat <- ir$yf
+    ir <- isoreg(dmat, cmat)
+    dmat <- ir$y
+    cmat <- ir$yf
 
     sstresscalc <- (dmat - cmat) ^ 2
     sstresscalc <- sum(sstresscalc) / sum(dmat ^ 2)

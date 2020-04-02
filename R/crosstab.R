@@ -69,11 +69,11 @@ crosstab <- function(rowlab, collab, values, type="sum", data, allrows, allcols,
         colnames(temp) <- colnames(results)
         rownames(temp) <- newrows
         results <- rbind(results, temp)
-		if(is.numeric(rowlab)) {
-			results <- results[order(as.numeric(rownames(results))), , drop=FALSE]
-		} else {
-        	results <- results[order(rownames(results)), , drop = FALSE]
-		}
+        if(is.numeric(rowlab)) {
+            results <- results[order(as.numeric(rownames(results))), , drop=FALSE]
+        } else {
+            results <- results[order(rownames(results)), , drop = FALSE]
+        }
     }
 
     if(!missing(allcols)) {
@@ -85,11 +85,11 @@ crosstab <- function(rowlab, collab, values, type="sum", data, allrows, allcols,
         rownames(temp) <- rownames(results)
         colnames(temp) <- newcols
         results <- cbind(results, temp)
-		if(is.numeric(collab)) {
-			results <- results[, order(as.numeric(colnames(results))), drop=FALSE]
-		} else {
-        	results <- results[, order(colnames(results)), drop = FALSE]
-		}
+        if(is.numeric(collab)) {
+            results <- results[, order(as.numeric(colnames(results))), drop=FALSE]
+        } else {
+            results <- results[, order(colnames(results)), drop = FALSE]
+        }
     }
 
     if(na.as.0) results[is.na(results)] <- 0

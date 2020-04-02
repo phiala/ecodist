@@ -6,11 +6,11 @@ lower <- function(m)
 m <- as.matrix(m)
 
 if(ncol(m) != nrow(m))
-	stop("Matrix not square.")
+    stop("Matrix not square.")
 if(ncol(m) == 1) {
    warning("Matrix is 1x1.")
    m
 }
 else 
-	m[col(m) < row(m)]
+    m[col(m) < row(m)]
 }

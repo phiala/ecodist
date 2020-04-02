@@ -46,20 +46,20 @@ distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov)
 
 pairedsum <- function(x)
 {
-	### paired sums
+    ### paired sums
    ### returns an N by N by P matrix containing each
    ### combination of 
     N <- nrow(x)
-	 P <- ncol(x)
-	 A <- numeric(N * N * P)
+     P <- ncol(x)
+     A <- numeric(N * N * P)
     A <- .C("psum",
-		as.double(as.vector(t(x))),
-		as.integer(N),
-		as.integer(P),
-		A = as.double(A),
-		PACKAGE = "ecodist")$A
-	 
-	 A <- array(A, dim=c(N, N, P))
+        as.double(as.vector(t(x))),
+        as.integer(N),
+        as.integer(P),
+        A = as.double(A),
+        PACKAGE = "ecodist")$A
+     
+     A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -67,16 +67,16 @@ paireddiff <- function(x)
 {
 ### paired differences
     N <- nrow(x)
-	 P <- ncol(x)
-	 A <- numeric(N * N * P)
+     P <- ncol(x)
+     A <- numeric(N * N * P)
     A <- .C("pdiff",
-		as.double(as.vector(t(x))),
-		as.integer(N),
-		as.integer(P),
-		A = as.double(A),
-		PACKAGE = "ecodist")$A
-	 
-	 A <- array(A, dim=c(N, N, P))
+        as.double(as.vector(t(x))),
+        as.integer(N),
+        as.integer(P),
+        A = as.double(A),
+        PACKAGE = "ecodist")$A
+     
+     A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -84,16 +84,16 @@ jointpresence <- function(x)
 {
 ### joint count of presences
     N <- nrow(x)
-	 P <- ncol(x)
-	 A <- numeric(N * N * P)
+     P <- ncol(x)
+     A <- numeric(N * N * P)
     A <- .C("jpres",
-		as.double(as.vector(t(x))),
-		as.integer(N),
-		as.integer(P),
-		A = as.double(A),
-		PACKAGE = "ecodist")$A
-	 
-	 A <- array(A, dim=c(N, N, P))
+        as.double(as.vector(t(x))),
+        as.integer(N),
+        as.integer(P),
+        A = as.double(A),
+        PACKAGE = "ecodist")$A
+     
+     A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -101,16 +101,16 @@ jointabsence <- function(x)
 {
 ### joint count of absences
     N <- nrow(x)
-	 P <- ncol(x)
-	 A <- numeric(N * N * P)
+     P <- ncol(x)
+     A <- numeric(N * N * P)
     A <- .C("jabs",
-		as.double(as.vector(t(x))),
-		as.integer(N),
-		as.integer(P),
-		A = as.double(A),
-		PACKAGE = "ecodist")$A
-	 
-	 A <- array(A, dim=c(N, N, P))
+        as.double(as.vector(t(x))),
+        as.integer(N),
+        as.integer(P),
+        A = as.double(A),
+        PACKAGE = "ecodist")$A
+     
+     A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -118,16 +118,16 @@ firstonly <- function(x)
 {
 ### present only in first sample
     N <- nrow(x)
-	 P <- ncol(x)
-	 A <- numeric(N * N * P)
+     P <- ncol(x)
+     A <- numeric(N * N * P)
     A <- .C("jfirst",
-		as.double(as.vector(t(x))),
-		as.integer(N),
-		as.integer(P),
-		A = as.double(A),
-		PACKAGE = "ecodist")$A
-	 
-	 A <- array(A, dim=c(N, N, P))
+        as.double(as.vector(t(x))),
+        as.integer(N),
+        as.integer(P),
+        A = as.double(A),
+        PACKAGE = "ecodist")$A
+     
+     A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -135,16 +135,16 @@ secondonly <- function(x)
 {
 ### present only in second sample
     N <- nrow(x)
-	 P <- ncol(x)
-	 A <- numeric(N * N * P)
+     P <- ncol(x)
+     A <- numeric(N * N * P)
     A <- .C("jsec",
-		as.double(as.vector(t(x))),
-		as.integer(N),
-		as.integer(P),
-		A = as.double(A),
-		PACKAGE = "ecodist")$A
-	 
-	 A <- array(A, dim=c(N, N, P))
+        as.double(as.vector(t(x))),
+        as.integer(N),
+        as.integer(P),
+        A = as.double(A),
+        PACKAGE = "ecodist")$A
+     
+     A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -159,7 +159,7 @@ x <- as.matrix(x)
     if (method == -1) 
         stop("ambiguous distance method")
     N <- nrow(x)
-	 P <- ncol(x)
+     P <- ncol(x)
 
 
 if(method == 1) 
@@ -167,7 +167,7 @@ if(method == 1)
 # Euclidean distance
     A <- paireddiff(x)
     if(is.null(spweight)) {
-	    D <- sqrt(apply(A, 1:2, function(x)sum(x * x)))
+        D <- sqrt(apply(A, 1:2, function(x)sum(x * x)))
     }
     else if(spweight[1] == "absence") {
         W <- ifelse(jointabsence(x)==1, 0, 1)
@@ -186,9 +186,9 @@ if(method == 2)
 {
 # Bray-Curtis distance
      A <- paireddiff(x)
-	 A <- apply(A, 1:2, function(x)sum(abs(x)))
-	 B <- pairedsum(x)
-	 B <- apply(B, 1:2, sum)
+     A <- apply(A, 1:2, function(x)sum(abs(x)))
+     B <- pairedsum(x)
+     B <- apply(B, 1:2, sum)
      D <- A / B
 }
 
@@ -198,7 +198,7 @@ if(method == 3)
 
    A <- paireddiff(x)
     if(is.null(spweight)) {
-	    D <- apply(A, 1:2, function(x)sum(abs(x)))
+        D <- apply(A, 1:2, function(x)sum(abs(x)))
     }
     else if(spweight[1] == "absence") {
         W <- ifelse(jointabsence(x)==1, 0, 1)
@@ -221,21 +221,21 @@ if(method == 4)
         icov <- cov(x)
     }
     icov <- solve(icov)
-	A <- paireddiff(x)
-	A1 <- apply(A, 1, function(z)(z %*% icov %*% t(z)))
-	D <- A1[seq(1, N*N, by=(N+1)), ]
+    A <- paireddiff(x)
+    A1 <- apply(A, 1, function(z)(z %*% icov %*% t(z)))
+    D <- A1[seq(1, N*N, by=(N+1)), ]
 }
 
 if(method == 5)
 {
 # Jaccard distance
     A <- jointpresence(x)
-	 A <- apply(A, 1:2, sum)
-	 B <- firstonly(x)
-	 B <- apply(B, 1:2, sum)
-	 C <- secondonly(x)
-	 C <- apply(C, 1:2, sum)
-	 D <- 1 - A / (A + B + C)
+     A <- apply(A, 1:2, sum)
+     B <- firstonly(x)
+     B <- apply(B, 1:2, sum)
+     C <- secondonly(x)
+     C <- apply(C, 1:2, sum)
+     D <- 1 - A / (A + B + C)
 }
 
 if(method == 6)
@@ -248,12 +248,12 @@ if(method == 7)
 {
 # Sorensen distance
     A <- jointpresence(x)
-	 A <- apply(A, 1:2, sum)
-	 B <- firstonly(x)
-	 B <- apply(B, 1:2, sum)
-	 C <- secondonly(x)
-	 C <- apply(C, 1:2, sum)
-	 D <- 1 - (2*A) / (2*A + B + C)
+     A <- apply(A, 1:2, sum)
+     B <- firstonly(x)
+     B <- apply(B, 1:2, sum)
+     C <- secondonly(x)
+     C <- apply(C, 1:2, sum)
+     D <- 1 - (2*A) / (2*A + B + C)
 }
 if(method == 8) 
 {
@@ -270,7 +270,7 @@ if(method == 8)
         }
     }
     if(is.null(spweight)) {
-	    D <- apply(A, 1:2, function(x)sum(abs(x)))
+        D <- apply(A, 1:2, function(x)sum(abs(x)))
     }
     else if(spweight[1] == "absence") {
         W <- ifelse(jointabsence(x)==1, 0, 1)
@@ -294,7 +294,7 @@ if(method == 9)
 
     A <- paireddiff(x)
     if(is.null(spweight)) {
-	    D <- apply(A, 1:2, function(x)sum(abs(x)))
+        D <- apply(A, 1:2, function(x)sum(abs(x)))
     }
     else if(spweight[1] == "absence") {
         W <- ifelse(jointabsence(x)==1, 0, 1)
@@ -317,7 +317,7 @@ if(method == 10)
 
     A <- paireddiff(x)
     if(is.null(spweight)) {
-	    D <- apply(A, 1:2, function(x)sum(abs(x)))
+        D <- apply(A, 1:2, function(x)sum(abs(x)))
     }
     else if(spweight[1] == "absence") {
         W <- ifelse(jointabsence(x)==1, 0, 1)
@@ -334,14 +334,14 @@ if(method == 10)
 
 
 
-## Make the results lower triangular	 
+## Make the results lower triangular     
     D <- D[col(D) < row(D)]
 
 ## give the results attributes similar to dist()
     attr(D, "Size") <- N
-	 attr(D, "Labels") <- rownames(x)
-	 attr(D, "Diag") <- FALSE
-	 attr(D, "Upper") <- FALSE
+     attr(D, "Labels") <- rownames(x)
+     attr(D, "Diag") <- FALSE
+     attr(D, "Upper") <- FALSE
     attr(D, "method") <- METHODS[method]
     class(D) <- "dist"
     D

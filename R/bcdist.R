@@ -11,28 +11,28 @@ bcdist <- function(x, rmzero = FALSE)
 #
 # The same functionality appears in distance(), but bcdist is substantially faster.
 
-	x <- as.matrix(x)
-	if(rmzero == TRUE) {
-		xsum <- apply(x, 1, sum)
-		x <- x[xsum > 0,  ]
-	}
-	dist.v <- rep(0, (nrow(x) * (nrow(x) - 1))/2)	
+    x <- as.matrix(x)
+    if(rmzero == TRUE) {
+        xsum <- apply(x, 1, sum)
+        x <- x[xsum > 0,  ]
+    }
+    dist.v <- rep(0, (nrow(x) * (nrow(x) - 1))/2)    
 
    cresults <- .C("bcdistc",
-		as.double(as.vector(t(x))),
-		as.integer(nrow(x)),
-		as.integer(ncol(x)),
-		dist.v = as.double(dist.v),
-		PACKAGE = "ecodist")
-	dist.v <- cresults$dist.v
+        as.double(as.vector(t(x))),
+        as.integer(nrow(x)),
+        as.integer(ncol(x)),
+        dist.v = as.double(dist.v),
+        PACKAGE = "ecodist")
+    dist.v <- cresults$dist.v
 
-	## give the results attributes similar to dist()
-	attr(dist.v, "Size") <- nrow(x)
- 	 attr(dist.v, "Labels") <- rownames(x)
-	 attr(dist.v, "Diag") <- FALSE
-	 attr(dist.v, "Upper") <- FALSE
+    ## give the results attributes similar to dist()
+    attr(dist.v, "Size") <- nrow(x)
+      attr(dist.v, "Labels") <- rownames(x)
+     attr(dist.v, "Diag") <- FALSE
+     attr(dist.v, "Upper") <- FALSE
     attr(dist.v, "method") <- "bray-curtis"
     class(dist.v) <- "dist"
 
-	dist.v
+    dist.v
 }

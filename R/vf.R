@@ -16,11 +16,11 @@ vf <- function (ord, vars, nperm = 100)
     }
     ord <- as.matrix(ord)
     if(is.vector(vars)) {
-    	vars <- matrix(vars, ncol=1)
-	colnames(vars) <- "var1"
+        vars <- matrix(vars, ncol=1)
+    colnames(vars) <- "var1"
     }
     else
-    	vars <- as.matrix(vars)
+        vars <- as.matrix(vars)
     nvars <- ncol(vars)
     if (any(is.na(vars))) {
         warning("NA values in variables will be removed\n")
@@ -34,8 +34,8 @@ vf <- function (ord, vars, nperm = 100)
         perm.ord <- lapply(how.many, function(x) sample(1:x))
         r.list <- sapply(perm.ord, function(x, ord, vars, f) f(ord[x, 
             ], vars)$r, ord = ord, vars = vars, f = vfcalc)
-	if(nvars == 1) 
-	    r.list <- matrix(r.list, nrow=1)
+    if(nvars == 1) 
+        r.list <- matrix(r.list, nrow=1)
         r.list <- cbind(vf1$r, r.list)
         pval <- apply(r.list, 1, function(x, nperm) length(x[x >= 
             x[1]])/nperm, nperm = nperm)

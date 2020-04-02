@@ -48,31 +48,31 @@ xmgram <- function(species.xd, space.xd, breaks, nclass, stepsize, nperm = 1000,
     dimnames(answer.m) <- list(NULL, c("lag", "ngroup", "mantelr", "pval"))
     answer.m[,4] <- rep(1, nrow(answer.m))
 
-	for(i in seq_len(nclass)) {
+    for(i in seq_len(nclass)) {
       dmin <- breaks[i]
       dmax <- breaks[i + 1]
-		answer.m[i,1] <- (dmin + dmax) / 2
+        answer.m[i,1] <- (dmin + dmax) / 2
 
-		space.dclass <- rep(0, length(space.xd))
-		space.dclass[space.xd <= dmin] <- 1
-		space.dclass[space.xd > dmax] <- 1
+        space.dclass <- rep(0, length(space.xd))
+        space.dclass[space.xd <= dmin] <- 1
+        space.dclass[space.xd > dmax] <- 1
 
-		ngroup <- length(space.dclass) - sum(space.dclass)
-		answer.m[i,2] <- ngroup
+        ngroup <- length(space.dclass) - sum(space.dclass)
+        answer.m[i,2] <- ngroup
 
-		if(ngroup > 0) {
+        if(ngroup > 0) {
             space.dclass <- matrix(space.dclass, nrow=dims[1], ncol=dims[2])
-			mant <- xmantel(species.xd ~ space.dclass, dims=dims, nperm=nperm, mrank=mrank)
-			answer.m[i,3] <- mant[1]
-			if(alternative == "two.sided")
-				answer.m[i,4] <- mant[4]
-			else
-				answer.m[i,4] <- mant[2]
-		}			
-			
-		if(trace) cat(i, "\t", answer.m[i,2], "\t", answer.m[i, 3], "\n")	
+            mant <- xmantel(species.xd ~ space.dclass, dims=dims, nperm=nperm, mrank=mrank)
+            answer.m[i,3] <- mant[1]
+            if(alternative == "two.sided")
+                answer.m[i,4] <- mant[4]
+            else
+                answer.m[i,4] <- mant[2]
+        }            
+            
+        if(trace) cat(i, "\t", answer.m[i,2], "\t", answer.m[i, 3], "\n")    
 
-	}
+    }
 
    results <- list(mgram = answer.m, resids = NA)
    class(results) <- "mgram"

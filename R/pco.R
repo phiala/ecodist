@@ -10,7 +10,7 @@ pco <- function(x, negvals = "zero", dround=0)
 
 n <- (1 + sqrt(1 + 8 * length(x)))/2
 if(abs(n - round(n)) > 0.0000001)
-	stop("Matrix not square.\n")
+    stop("Matrix not square.\n")
 n <- round(n)
 
 x <- full(x)

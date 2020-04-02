@@ -57,8 +57,8 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
 # Determine the size of the matrices & do some error checking.
         n <- (1 + sqrt(1 + 8 * nrow(m)))/2
         if(abs(n - round(n)) > 0.0000001)
-		    stop("Matrix not square.\n")
-	    n <- round(n)
+            stop("Matrix not square.\n")
+        n <- round(n)
         if(ncol(m) < 2) 
             stop("Not enough data. \n")
 
@@ -83,7 +83,7 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
                 omat <- cbind(rep(1, length(ymat)), omat)
                 xmat <- as.vector(omat[, 2])
                 omat <- omat[, -2]
-		omat <- as.matrix(omat)
+        omat <- as.matrix(omat)
                 ycor <- lm.fit(omat, ymat)$residuals
                 xcor <- lm.fit(omat, xmat)$residuals
         }
@@ -118,17 +118,17 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
 # Standardize the columns of the matrices so
 # that z = r and we can do 2-tailed tests.
  
-			ncor <- length(xmat)
+            ncor <- length(xmat)
 
-			w1 <- sum(xmat)/ncor
-			w2 <- sum(xmat^2)
-			w2 <- sqrt(w2/ncor - w1^2)
-			xmat <- (xmat - w1)/w2
+            w1 <- sum(xmat)/ncor
+            w2 <- sum(xmat^2)
+            w2 <- sqrt(w2/ncor - w1^2)
+            xmat <- (xmat - w1)/w2
 
-			w1 <- sum(ymat)/ncor
-			w2 <- sum(ymat^2)
-			w2 <- sqrt(w2/ncor - w1^2)
-			ymat <- (ymat - w1)/w2
+            w1 <- sum(ymat)/ncor
+            w2 <- sum(ymat^2)
+            w2 <- sqrt(w2/ncor - w1^2)
+            ymat <- (ymat - w1)/w2
 
              cresults <- .C("permute",
                                 as.double(xmat),
@@ -139,13 +139,13 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
                                 zstats = as.double(zstats),
                                 as.double(as.vector(tmat)),
                                 as.integer(rarray),
-										  PACKAGE = "ecodist")
-		}
+                                          PACKAGE = "ecodist")
+        }
                 else {
-			tomat <- t(omat)
+            tomat <- t(omat)
                         hmat <- solve(tomat %*% omat)
                         hmat <- hmat %*% tomat
-			bmat <- rep(0, ncol(omat))
+            bmat <- rep(0, ncol(omat))
 
                         xcor <- as.vector(lm.fit(omat, xmat)$residuals)
                         ycor <- as.vector(lm.fit(omat, ymat)$residuals)
@@ -153,33 +153,33 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
 # Standardize the columns of the matrices so
 # that z = r and we can do 2-tailed tests.
  
-			ncor <- length(xcor)
+            ncor <- length(xcor)
 
-			w1 <- sum(xcor)/ncor
-			w2 <- sum(xcor^2)
-			w2 <- sqrt(w2/ncor - w1^2)
-			xcor <- (xcor - w1)/w2
+            w1 <- sum(xcor)/ncor
+            w2 <- sum(xcor^2)
+            w2 <- sqrt(w2/ncor - w1^2)
+            xcor <- (xcor - w1)/w2
 
-			w1 <- sum(ycor)/ncor
-			w2 <- sum(ycor^2)
-			w2 <- sqrt(w2/ncor - w1^2)
-			ycor <- (ycor - w1)/w2
+            w1 <- sum(ycor)/ncor
+            w2 <- sum(ycor^2)
+            w2 <- sqrt(w2/ncor - w1^2)
+            ycor <- (ycor - w1)/w2
 
          cresults <- .C("permpart",
                                 as.double(as.vector(hmat)),
                                 bmat = as.double(bmat),
-				as.double(as.vector(omat)),
+                as.double(as.vector(omat)),
                                 as.double(ymat),
                                 as.double(xcor),
                                 ycor = as.double(ycor),
                                 as.integer(n),
-				as.integer(length(bmat)),
+                as.integer(length(bmat)),
                                 as.integer(length(xmat)),
                                 as.integer(nperm),
                                 zstats = as.double(zstats),
                                 as.double(as.vector(tmat)),
                                 as.integer(rarray),
-										  PACKAGE = "ecodist")
+                                          PACKAGE = "ecodist")
                 }
                 zstats <- cresults$zstats       # Calculate the p-values.
                 pval1 <- length(zstats[zstats >= zstats[1]])/nperm
@@ -218,7 +218,7 @@ mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, m
                         as.integer(rmat),
                         as.double(xdif),
                         as.double(ydif),
-								PACKAGE = "ecodist")
+                                PACKAGE = "ecodist")
                 bootcor <- cresults$bootcor
                 bootcor <- sort(bootcor)
                 pval <- (1 - cboot)/2
