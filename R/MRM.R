@@ -1,4 +1,4 @@
-MRM <- function(formula = formula(data), data = sys.parent(), nperm = 1000, method="linear", mrank = FALSE)
+MRM <- function(formula = formula(data), data, nperm = 1000, method="linear", mrank = FALSE)
 {
 # MRM: Multiple Regression on distance Matrices
 # Sarah Goslee 2008-07-18

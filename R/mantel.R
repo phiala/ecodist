@@ -1,4 +1,4 @@
-mantel <- function(formula = formula(data), data = sys.parent(), nperm = 1000, mrank = FALSE, nboot = 500, pboot = 0.9, cboot = 0.95)
+mantel <- function(formula = formula(data), data, nperm = 1000, mrank = FALSE, nboot = 500, pboot = 0.9, cboot = 0.95)
 {
 # Mantel test 
 # Written by Sarah C. Goslee

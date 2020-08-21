@@ -6,7 +6,7 @@
 }
 
 \usage{
-MRM(formula = formula(data), data = sys.parent(), nperm = 1000,
+MRM(formula = formula(data), data, nperm = 1000,
 	method = "linear", mrank = FALSE)
 }
 

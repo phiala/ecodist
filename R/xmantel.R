@@ -1,4 +1,4 @@
-xmantel <- function(formula = formula(data), data = sys.parent(), dims = NA, nperm = 1000, mrank = FALSE)
+xmantel <- function(formula = formula(data), data, dims = NA, nperm = 1000, mrank = FALSE)
 {
 # Cross-mantel test 
 # Written by Sarah C. Goslee

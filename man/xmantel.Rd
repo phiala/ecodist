@@ -5,7 +5,7 @@
   Simple and partial cross-Mantel tests, with options for ranked data and permutation tests.
 }
 \usage{
-xmantel(formula = formula(data), data = sys.parent(), dims = NA,
+xmantel(formula = formula(data), data, dims = NA,
    nperm = 1000, mrank = FALSE)
 }
 \arguments{
