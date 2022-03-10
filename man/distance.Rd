@@ -6,7 +6,7 @@
   distance() was written for extensibility and understandability, and is not necessarily an efficient choice for use with large matrices.
 }
 \usage{
-distance(x, method = "euclidean", sprange=NULL, spweight=NULL, icov)
+distance(x, method = "euclidean", sprange=NULL, spweight=NULL, icov, inverted = FALSE)
 }
 
 \arguments{
@@ -16,6 +16,7 @@ species). Distances will be calculated for each pair of rows. }
   \item{sprange}{Gower dissimilarities offer the option of dividing by the species range. If sprange=NULL no range is used. If sprange is a vector of length nrow(x) it is used for standardizing the dissimilarities.}
   \item{spweight}{Euclidean, Manhattan, and Gower dissimilarities allow weighting. If spweight=NULL, no weighting is used. If spweight="absence", then W=0 if both species are absent and 1 otherwise, thus deleting joint absences.}
   \item{icov}{Optional covariance matrix; only used if method="mahalanobis" since Mahalanobis distance requires calculating the variance-covariance matrix for the entire dataset. Providing icov directly makes it possible to calculate distances for a subset of the full dataset.}
+  \item{inverted}{If TRUE, the optional covariance matrix for method="mahalanobis" is not inverted before solving. Providing an inverted matrix may speed up calculations.}
 }
 
 \value{
