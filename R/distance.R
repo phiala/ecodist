@@ -1,4 +1,4 @@
-distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov)
+distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov, inverted = FALSE)
 {
 # calculates similarity and dissimilarity coefficients
 # as described in Legendre and Legendre 1998
@@ -8,6 +8,7 @@ distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov)
 # 2 March 2006
 # revised 31 March 2008
 # bug-fix 15 December 2008
+# improved mahalanobis 10 March 2022
 ### 
 # uses clever matrix math to calculate the pieces needed
 # by dissimilarity matrices, to make it easy to add new
@@ -43,6 +44,8 @@ distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov)
 # making it impossible to calculate in chunks for a very large dataset.
 # Now can specify covariance matrix separately, to enable this. 
 # argument icov. If missing, will be calculated from data as in previous version.
+# if inverted = FALSE, icov is inverted before calculating
+# providing an inverted covariance matrix may speed up calculations
 
 pairedsum <- function(x)
 {
@@ -215,15 +218,16 @@ if(method == 3)
 
 if(method == 4)
 {
-# pairwise Mahalanobis distance
-# same as mahal()
+# pairwise squared Mahalanobis distance
     if(missing(icov)) {
-        icov <- cov(x)
+        icov <- solve(cov(x))
+    } else {
+        if(!inverted) {
+            icov <- solve(icov)
+        }
     }
-    icov <- solve(icov)
     A <- paireddiff(x)
-    A1 <- apply(A, 1, function(z)(z %*% icov %*% t(z)))
-    D <- A1[seq(1, N*N, by=(N+1)), ]
+    D <- apply(A, 1:2, function(x)sum(x %*% icov * x))
 }
 
 if(method == 5)
