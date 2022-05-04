@@ -8,7 +8,7 @@ citEntry(entry="Article",
 	year	 = 2007,
 	volume = 22,
     	issue = 7,
-	pages	= "1-19"
+	pages	= "1-19",
 	doi = "10.18637/jss.v022.i07",
 	 
 	textVersion = 
