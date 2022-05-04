@@ -1,3 +1,10 @@
+#define USE_FC_LEN_T
+#include <Rconfig.h>
+#include <R_ext/BLAS.h>
+#ifndef FCONE
+# define FCONE
+#endif
+
 #include <R.h>
 #include <Rmath.h>
 #include <R_ext/Applic.h> /* for dgemm */
@@ -729,7 +736,7 @@ double one = 1.0, zero = 0.0;
 int onei = 1;
 
 
-/* Set random seed using Splus function */
+/* Set random seed using R function */
 
 RANDIN;
 
@@ -739,31 +746,31 @@ for(i = 0; i < *nperm; i++) {
 /* first do the unpermuted values */
 
 /*	F77_CALL(dgemm)(transa, transb, &ncx, &ncy, &nrx, &one,
-			x, &nrx, y, &nry, &zero, z, &ncx); */
+			x, &nrx, y, &nry, &zero, z, &ncx FCONE FCONE); */
 
 /* take crossproduct t(X) %*% Y - WORKS */
     F77_CALL(dgemm)(transt, transn, 
             p, &onei, nd, 
             &one, x, nd, y, nd, 
-            &zero, XY, p);
+            &zero, XY, p FCONE FCONE);
 
 /* take crossproduct t(Y) %*% (Y) - WORKS */
     F77_CALL(dgemm)(transt, transn, 
             &onei, &onei, nd, 
             &one, y, nd, y, nd, 
-            &zero, YY, &onei);
+            &zero, YY, &onei FCONE FCONE);
 
 /* calculate regression coefficients XX %*% XY - WORKS */
     F77_CALL(dgemm)(transn, transn, 
             p, &onei, p, 
             &one, XX, p, XY, p, 
-            &zero, b, p);
+            &zero, b, p FCONE FCONE);
 
 /* calculate regression components - WORKS */
     F77_CALL(dgemm)(transt, transn, 
             &onei, &onei, p, 
             &one, b, p, XY, p, 
-            &zero, &btemp, &onei);
+            &zero, &btemp, &onei FCONE FCONE);
 
 /* SSE - WORKS */    
     SSE = YY[0] - btemp;
