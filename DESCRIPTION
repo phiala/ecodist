@@ -1,6 +1,6 @@
 Package: ecodist
-Version: 2.0.9
-Date: 2022-05-04
+Version: 2.0.10
+Date: 2022-12-01
 Title: Dissimilarity-Based Functions for Ecological Analysis
 Authors@R: c(person("Sarah", "Goslee", role = c("aut", "cre"),
                      email = "Sarah.Goslee@usda.gov"),

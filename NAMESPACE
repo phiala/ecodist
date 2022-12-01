@@ -13,6 +13,7 @@ S3method(plot, nmds)
 S3method(plot, vf)
 S3method(plot, mgram)
 S3method(residuals, mgram)
+S3method(dim, dist)
 ## Compiled code
 useDynLib(ecodist, .registration = TRUE)
 
