@@ -20,18 +20,18 @@ Description | Notation | Name | R function
 Relationship between two matrices | D1 ~ D2 | Mantel test | **mantel**(D1 ~ D2)
 Relationship between two matrices given more | D1 ~ D2 &#124; D3 ... Dn | Partial Mantel test | **mantel**(D1 ~ D2 + D3 + ...)
 |||
-Spatial structure in one matrix | D1 x S | Mantel correlogram | **mgram**(D1, S)
-Spatial structure in one matrix given more | D1 &#124; D2 ... Dn x S | Partial Mantel correlogram | **?mgram**(residuals(lm(D1 ~ D2 + ...)), space)
-Spatial structuce in one matrix | D1 x S | Multivariate correlogram | **pmgram**(D1, S)
-Spatial structure in one matrix given more | D1 &#124; D2 ... Dn x S | Partial multivariate correlogram | **pmgram**(D1, S, D2)
+Spatial structure in one matrix relative to all distance classes | D1 x S | Mantel correlogram | **mgram**(D1, S)
+Spatial structure in one matrix given more relative to all distance classes | D1 &#124; D2 ... Dn x S | Partial Mantel correlogram | **?mgram**(residuals(lm(D1 ~ D2 + ...)), space)
+Spatial structuce in one matrix by distance class | D1 x S | Piecewise multivariate correlogram | **pmgram**(D1, S)
+Spatial structure in one matrix by distance class given more | D1 &#124; D2 ... Dn x S | Piecewise partial multivariate correlogram | **pmgram**(D1, S, D2)
 |||
-Spatial structure in the relationship between two matrices | D1 ~ D2 x S | Mantel cross-correlogram | **pmgram**(cbind(lower(D1), lower(D2)), S)
-Spatial structure in the relationship between two matrices given more | D1 ~ D2 &#124; D3 ... Dn x S | Partial Mantel cross-correlogram | **pmgram**(cbind(lower(D1), lower(D2)), S, D3)
+Spatial structure in the relationship between two matrices | D1 ~ D2 x S | Piecewise Mantel cross-correlogram | **pmgram**(cbind(lower(D1), lower(D2)), S)
+Spatial structure in the relationship between two matrices given more | D1 ~ D2 &#124; D3 ... Dn x S | Piecewise partial Mantel cross-correlogram | **pmgram**(cbind(lower(D1), lower(D2)), S, D3)
 |||
 Ordination of one matrix | | (N)MDS | **nmds**(y) or **pco**(y)
 Ordination of one matrix given more | | (Partial (N)MDS | **?nmds**(residuals(lm(y ~ z1 + ...)))
 |||
-Grouping of items based on one matrix | | Cluster analysis | hclust(y)
+Grouping of items based on one matrix | | Cluster analysis | eg hclust(y)
 Grouping of items based on one matrix given more | | Partial cluster analysis | ?hclust(residuals(lm(y ~ z1 + ...)))
 Grouping of items given space | | Spatially-constrained cluster analysis | NA
 |||

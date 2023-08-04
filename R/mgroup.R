@@ -7,12 +7,16 @@
 # dlu
 #
 
-mgroup <- function(edist, groups, nperm=1000)  
+mgroup <- function(edist, groups, nperm = 1000, mrank = FALSE)  
 {
     nl <- ncol(groups)
     if(is.null(nl)) {
         groups <- matrix(groups, ncol=1)
         nl <- 1
+    }
+
+    if(mrank) {
+        edist <- rank(edist)
     }
 
     outtable <- data.frame(nclust = rep(NA, nl), mantelr = rep(NA, nl), pval = rep(NA, nl))

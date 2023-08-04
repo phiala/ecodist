@@ -2,8 +2,7 @@
 \alias{mgroup}
 \title{ Mantel test for groups }
 \description{
-  Simple and partial Mantel tests, with options for ranked data, 
-  permutation tests, and bootstrapped confidence limits.
+  Mantel test across one or more group contrasts.
 }
 \usage{
 mgroup(edist, groups, nperm=1000)

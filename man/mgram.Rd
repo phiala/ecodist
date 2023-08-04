@@ -27,9 +27,7 @@ to determine an appropriate number of classes. }
   \item{trace}{ if TRUE, returns progress indicators. }
 }
 \details{
-This function calculates Mantel correlograms. The Mantel correlogram is essentially a multivariate autocorrelation function.
-The Mantel r represents the dissimilarity in variable composition  (often
-species composition) at a particular lag distance.
+This function calculates Mantel correlograms, and tests the hypothesis that the mean compositional dissimilarity within a distance class differs from the mean of all the other distance classes combined. The Mantel correlogram is essentially a multivariate autocorrelation function. The Mantel r represents the dissimilarity in variable composition  (often species composition) at a particular lag distance, and significance is tested in reference to all distance classes.
 }
 \value{
 	Returns an object of class mgram, which is a list with two elements.

@@ -34,7 +34,7 @@ distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov, i
 # 3: manhattan
 # 4: mahalanobis
 # 5: jaccard
-# 6: simple difference
+# 6: simple difference: not symmetric
 # 7: sorensen
 # 8: Gower
 # 9: Modified Gower base 10 (Anderson et al 2006)
@@ -50,11 +50,11 @@ distance <- function(x, method="euclidean", sprange=NULL, spweight=NULL, icov, i
 pairedsum <- function(x)
 {
     ### paired sums
-   ### returns an N by N by P matrix containing each
-   ### combination of 
+    ### returns an N by N by P matrix containing each
+    ### combination of 
     N <- nrow(x)
-     P <- ncol(x)
-     A <- numeric(N * N * P)
+    P <- ncol(x)
+    A <- numeric(N * N * P)
     A <- .C("psum",
         as.double(as.vector(t(x))),
         as.integer(N),
@@ -62,7 +62,7 @@ pairedsum <- function(x)
         A = as.double(A),
         PACKAGE = "ecodist")$A
      
-     A <- array(A, dim=c(N, N, P))
+    A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -70,8 +70,8 @@ paireddiff <- function(x)
 {
 ### paired differences
     N <- nrow(x)
-     P <- ncol(x)
-     A <- numeric(N * N * P)
+    P <- ncol(x)
+    A <- numeric(N * N * P)
     A <- .C("pdiff",
         as.double(as.vector(t(x))),
         as.integer(N),
@@ -79,7 +79,7 @@ paireddiff <- function(x)
         A = as.double(A),
         PACKAGE = "ecodist")$A
      
-     A <- array(A, dim=c(N, N, P))
+    A <- array(A, dim=c(N, N, P))
     A
 }
 
@@ -152,6 +152,7 @@ secondonly <- function(x)
 }
 
 x <- as.matrix(x)
+isSymmetric <- TRUE # indicates what form of results to return
 
 ## code borrowed from dist()
     METHODS <- c("euclidean", "bray-curtis", "manhattan", "mahalanobis", "jaccard", "difference", "sorensen", "gower", "modgower10", "modgower2")
@@ -245,19 +246,20 @@ if(method == 5)
 if(method == 6)
 {
 # simple difference, NOT symmetric
-D <- paireddiff(x)[,,1, drop=TRUE]
+    isSymmetric <- FALSE
+    D <- paireddiff(x)[, , 1, drop=TRUE]
 }
 
 if(method == 7)
 {
 # Sorensen distance
     A <- jointpresence(x)
-     A <- apply(A, 1:2, sum)
-     B <- firstonly(x)
-     B <- apply(B, 1:2, sum)
-     C <- secondonly(x)
-     C <- apply(C, 1:2, sum)
-     D <- 1 - (2*A) / (2*A + B + C)
+    A <- apply(A, 1:2, sum)
+    B <- firstonly(x)
+    B <- apply(B, 1:2, sum)
+    C <- secondonly(x)
+    C <- apply(C, 1:2, sum)
+    D <- 1 - (2*A) / (2*A + B + C)
 }
 if(method == 8) 
 {
@@ -336,17 +338,20 @@ if(method == 10)
     }
 }
 
+    if(isSymmetric) {
 
+        ## Make the results lower triangular     
+            D <- D[col(D) < row(D)]
 
-## Make the results lower triangular     
-    D <- D[col(D) < row(D)]
+        ## give the results attributes similar to dist()
+            attr(D, "Size") <- N
+            attr(D, "Labels") <- rownames(x)
+            attr(D, "Diag") <- FALSE
+            attr(D, "Upper") <- FALSE
+            attr(D, "method") <- METHODS[method]
+            class(D) <- "dist"
 
-## give the results attributes similar to dist()
-    attr(D, "Size") <- N
-     attr(D, "Labels") <- rownames(x)
-     attr(D, "Diag") <- FALSE
-     attr(D, "Upper") <- FALSE
-    attr(D, "method") <- METHODS[method]
-    class(D) <- "dist"
+    }
+
     D
 }

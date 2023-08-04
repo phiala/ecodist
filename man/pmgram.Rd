@@ -1,8 +1,8 @@
 \name{pmgram}
 \alias{pmgram}
-\title{ Partial Mantel correlogram }
+\title{ Piecewise multivariate correlogram }
 \description{
- This function calculates simple and partial multivariate correlograms.
+ This function calculates simple and partial piecewise multivariate correlograms.
 }
 \usage{
 pmgram(data, space, partial, breaks, nclass, stepsize, resids = FALSE, nperm = 1000)
@@ -20,12 +20,15 @@ to determine an appropriate number of classes. }
   \item{nperm}{ number of permutations to use. If set to 0, the permutation test will be omitted. }
 }
 \details{
+
+The standard Mantel correlogram calculated by \code{\link{mgram}} tests the hypothesis that the mean compositional dissimilarity within a distance class differs from the mean of all the other distance classes combined. This function instead produces a piecewise correlogram by testing the relationship between dissimilarities within each distance class on its own, without reference to relationships across other distance classes.
+
 This function does four different analyses:
 	If data has 1 column and partial is missing,
 	calculates a multivariate correlogram for data.
 
 If data has 2 columns and partial is missing,
-	calculates a Mantel cross-correlogram, calculating the Mantel r between
+	calculates a piecewise Mantel cross-correlogram, calculating the Mantel r between
 	the two columns for each distance class separately.
 
 If data has 1 column and partial exists,
@@ -36,6 +39,8 @@ If data has 2 columns and partial exists,
 	calculating partial Mantel r for each distance class separately.
 
 The Iwt statistic used for the multivariate correlograms is not the standard Mantel r. For one variable, using Euclidean distance, this metric converges on the familiar Moran autocorrelation. Like the Moran autocorrelation function, this statistic usually falls between -1 and 1, but is not bounded by those limits. Unlike the Moran function, this correlogram can be used for multivariate data, and can be extended to partial tests.
+
+The Mantel r is used for piecewise cross-correlograms.
 
 The comparisons in \code{vignette("dissimilarity", package="ecodist")} may help.
 }
