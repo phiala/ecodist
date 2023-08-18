@@ -11,3 +11,6 @@
 
 # R packages
 *.tar.gz
+
+# Mac files
+.DS_Store

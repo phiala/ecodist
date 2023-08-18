@@ -38,12 +38,14 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 #    4 two-sided p-value
 
 # use breaks if it exists.
-# If nclass or stepsize aren't specified, use Sturge's rule to calculate nclass
+# If nclass or stepsize aren't specified, use Sturges' rule to calculate nclass
 # classes are shifted so that they don't have to start with zero
+# 2023-08-18: changed from using round to ceiling in Sturges' rule 
+# calculation for compatibility with nclass.Sturges
     if(missing(breaks)) {
       if(missing(nclass)) {
          if(missing(stepsize)) {
-            nclass <- round(1 + 3.3 * log10(length(space)))
+            nclass <- ceiling(1 + 3.3 * log10(length(space)))
             stepsize <- (max(space) - min(space)) / nclass
          } else {
             nclass <- round((max(space) - min(space))/stepsize)

@@ -20,12 +20,14 @@ mgram <- function(species.d, space.d, breaks, nclass, stepsize, nperm = 1000, mr
     space <- as.vector(space.d)
 
 # use breaks if it exists.
-# If nclass or stepsize aren't specified, use Sturge's rule to calculate nclass
+# If nclass or stepsize aren't specified, use Sturges' rule to calculate nclass
 # classes are shifted so that they don't have to start with zero
+# 2023-08-18: changed from using round to ceiling in Sturges' rule 
+# calculation for compatibility with nclass.Sturges
     if(missing(breaks)) {
         if(missing(nclass)) {
             if(missing(stepsize)) {
-                nclass <- round(1 + 3.3 * log10(length(space.d)))
+                nclass <- ceiling(1 + 3.3 * log10(length(space.d)))
                 stepsize <- (max(space.d) - min(space.d))/nclass
             }
             else {
