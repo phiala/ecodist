@@ -1,76 +1,49 @@
 \name{relrange}
 \alias{relrange}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+	Relativize a compositional data matrix.
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+   Relativizes the range of each column of a data frame or matrix x to 0-1. If globalmin and/or globalmax are provided, those are used to scale the columns, for instance to scale a subset to match a larger sample. If they are NA, the minimum and maximum values for each column are used.
 }
 \usage{
 relrange(x, globalmin = NA, globalmax = NA)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+	The data frame or matrix to be relativized.
 }
   \item{globalmin}{
-%%     ~~Describe \code{globalmin} here~~
+	A value other than the population minimum to be used. Should be the same length as the number of columns of x.
 }
   \item{globalmax}{
-%%     ~~Describe \code{globalmax} here~~
+	A value other than the population maximum to be used. Should be the same length as the number of columns of x.
+
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+	Relativizes the data using the minimum and maximum values. If globalmin and global max are not used, the range will be 0-1 for each variable. This can be useful for putting disparate variables to the same magnitude while keeping all non-negative values.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+
+	Returns an object of the same class as x (matrix or data frame) with the columns rescaled.
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\author{ Sarah Goslee }
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+	\code{\link{scale}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (x, globalmin = NA, globalmax = NA) 
-{
-    if (is.na(globalmin[1])) 
-        globalmin <- apply(x, 2, min)
-    if (is.na(globalmax[1])) 
-        globalmax <- apply(x, 2, max)
-    globalmax <- globalmax - globalmin
-    x <- sweep(x, 2, globalmin, "-")
-    x <- sweep(x, 2, globalmax, "/")
-    x
-  }
+	x <- matrix(1:15, ncol = 3)
+
+	# uses min and max of the data
+	relrange(x)
+
+	# uses min and max determined by other knowledge of the variables
+	relrange(x, globalmin = c(0, 0, 0), globalmax = c(6, 10, 20))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
-% \concept{ ~cpt1 }
-% \concept{ ~cpt2 }
-% Use only one concept per line.
+
+\keyword{ multivariate }
+

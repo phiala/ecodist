@@ -1,6 +1,6 @@
 Package: ecodist
-Version: 2.1.0
-Date: 2023-07-20
+Version: 2.1.1
+Date: 2023-08-29
 Title: Dissimilarity-Based Functions for Ecological Analysis
 Authors@R: c(person("Sarah", "Goslee", role = c("aut", "cre"),
                      email = "Sarah.Goslee@usda.gov"),
@@ -10,7 +10,7 @@ Author: Sarah Goslee [aut, cre],
 Maintainer: Sarah Goslee <Sarah.Goslee@usda.gov>
 Depends: R (>= 3.0.0)
 LazyData: true
-Imports: stats, graphics
+Imports: stats, graphics, igraph
 Suggests: knitr, testthat, markdown
 VignetteBuilder: knitr
 Description: Dissimilarity-based analysis functions including ordination and Mantel test functions, intended for use with spatial and community ecological data. The original package description is in Goslee and Urban (2007) <doi:10.18637/jss.v022.i07>, with further statistical detail in Goslee (2010) <doi:10.1007/s11258-009-9641-0>.

@@ -3,11 +3,20 @@
 Dissimilarity-based analysis functions including ordination and Mantel test functions, intended for use with spatial and community data.
 
 
+** CHANGES in ecodist 2.1.1**
+
+  - added relrange to standardize matrices
+  - updated mgram, pmgram, xmgram to be compatible with nclass.Sturges when calculating default number of breaks
+  - added equiprobable option to mgram, pmgram, xmgram to calculate equal-number bins instead of default equal-width
+  - added mstdist to use a minimum spanning tree calculation to estimate distances for pairs sites with no species in common
+  - fixed distance to correctly return simple difference
+
+
 **CHANGES in ecodist 2.0.10**
 
-The spdep package overwrites the base behavior of dim() for dist objects, which breaks ecodist::MRM(). A fix has been added to ecodist 2.0.10 that returns dim.dist() to its base state, as long as ecodist is loaded after spdep. Note that this may in turn break spdep functions. The maintainer of spdep plans to remove the problematic dim.dist() eventually, since ecodist is not the only package it breaaks.
+The proxy package (as of version 0.4-27), loaded by many spatial packages including spdep, overwrites the base behavior of dim() for dist objects, which breaks ecodist functions. A fix has been added to ecodist 2.0.10 that returns dim.dist() to its base state, as long as ecodist is loaded after all other packages. The maintainer plans to remove the problematic dim.dist() eventually, since ecodist is not the only package it breaks.
 
-Until then, if you need ecodist and spdep both, load ecodist last. Since dim() is called by functions outside of ecodist, I can't simply specify ecodist::dim() in all relevant cases.
+Until then, load ecodist last. Since dim() is called by functions outside of ecodist, I can't simply specify ecodist::dim() in all relevant cases.
 
 dim(dist(matrix(1:15, ncol=3))) 
 

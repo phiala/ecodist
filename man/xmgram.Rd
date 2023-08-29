@@ -5,7 +5,7 @@
 	Calculates simple Mantel correlograms from cross-distance matrices.
 }
 \usage{
-xmgram(species.xd, space.xd, breaks, nclass, stepsize, nperm = 1000,
+xmgram(species.xd, space.xd, breaks, nclass, stepsize, equiprobable = FALSE, nperm = 1000,
     mrank = FALSE, alternative = "two.sided", trace = FALSE)
 }
 \arguments{
@@ -15,6 +15,7 @@ xmgram(species.xd, space.xd, breaks, nclass, stepsize, nperm = 1000,
   \item{nclass}{ number of distance classes. If not specified, Sturge's rule will be used
 to determine an appropriate number of classes. }
   \item{stepsize}{ width of each distance class. If not specified, nclass and the range of space.d will be used to calculate an appropriate default. }
+  \item{equiprobable}{ if TRUE, create nclass classes of equal number of distances; if FALSE, create nclass classes of equal width }  
   \item{nperm}{ number of permutations to use. If set to 0, the permutation test will be omitted. }
 
   \item{mrank}{ if this is set to FALSE (the default option), Pearson correlations will be used. If

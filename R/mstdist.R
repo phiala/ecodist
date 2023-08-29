@@ -21,7 +21,15 @@ mstdist <- function(v, maxv = 1) {
 
 	v.dist <- distances(v.graph)
 
-	lower(v.dist)
+	v.dist <- lower(v.dist)
 
+    ## give the result appropriate attributes based on the original object
+    attributes(v.dist) <- attributes(v)
+
+    if(!is.null(attr(v.dist, "method"))) {
+        attr(v.dist, "method") <- paste(attr(v.dist, "method"), "mst", sep="-")
+    }
+
+    v.dist
 }
 

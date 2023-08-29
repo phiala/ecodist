@@ -13,7 +13,8 @@ xdistance(x, y, method = "euclidean")
 \arguments{
   \item{x}{A site by species or other matrix or data frame.}
   \item{y}{A a second site by species dataset, which must have at least the same columns.}
-  \item{method}{This function calls \code{\link{distance}} to do the calculations, and will accept any method used there, currently: "euclidean", "bray-curtis", "manhattan", "mahalanobis" (squared Mahalanobis distance), "jaccard", "difference", "sorensen", "gower", "modgower10" (modified Gower, base 10), "modgower2" (modified Gower, base 2). Partial matching will work for selecting a method.}
+  \item{method}{This function calls \code{\link{distance}} to do the calculations, and will accept any symmetric method used there, currently: "euclidean", "bray-curtis", "manhattan", "mahalanobis" (squared Mahalanobis distance), "jaccard", "sorensen", "gower", "modgower10" (modified Gower, base 10), "modgower2" (modified Gower, base 2). Partial matching will work for selecting a method.
+  The asymmetric "difference" method will not work for calculating cross-distances.}
 }
 \details{
 This function will calculate rowwise dissimilarities between any pair of matrices or data frames with the same number of columns.

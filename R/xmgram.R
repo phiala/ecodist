@@ -1,4 +1,4 @@
-xmgram <- function(species.xd, space.xd, breaks, nclass, stepsize, nperm = 1000, mrank = FALSE, alternative = "two.sided", trace = FALSE)
+xmgram <- function(species.xd, space.xd, breaks, nclass, stepsize, equiprobable = FALSE, nperm = 1000, mrank = FALSE, alternative = "two.sided", trace = FALSE)
 
 
 # Cross-Mantel correlogram developed from mgram()
@@ -14,6 +14,9 @@ xmgram <- function(species.xd, space.xd, breaks, nclass, stepsize, nperm = 1000,
 # Default is two-tailed test (H0: rM = 0; alternative = "two.sided")
 # May also use one-sided test (H0: rM <= 0; alternative = "one.sided")
 
+# 2023-08-29 added equiprobable option for distance classes of equal number
+# rather than equal width
+
 {
 
     dims <- dim(species.xd)
@@ -21,26 +24,30 @@ xmgram <- function(species.xd, space.xd, breaks, nclass, stepsize, nperm = 1000,
     space.xd <- as.vector(space.xd)
 
 # use breaks if it exists.
-# If nclass or stepsize aren't specified, use Sturge's rule to calculate nclass
+# If nclass or stepsize aren't specified, use Sturges' rule to calculate nclass
 # classes are shifted so that they don't have to start with zero
+# 2023-08-18: changed from using round to ceiling in Sturges' rule 
+# calculation for compatibility with nclass.Sturges
     if(missing(breaks)) {
-        if (missing(nclass)) {
+        if(missing(nclass)) {
             if (missing(stepsize)) {
-                nclass <- round(1 + 3.3 * log10(length(space.xd)))
+                nclass <- round(1 + log2(length(space.xd)))
                 stepsize <- (max(space.xd) - min(space.xd))/nclass
-            }
-            else {
+            } else {
                 nclass <- round((max(space.xd) - min(space.xd))/stepsize)
             }
-        }
-        else {
+        } else {
             if (missing(stepsize)) {
                 stepsize <- (max(space.xd) - min(space.xd))/nclass
             }
         }
-        breaks <- seq(0, stepsize * nclass, stepsize)
-    }
-    else {
+        if(equiprobable) {
+            breaks <- quantile(space.d, seq(0, 1, length.out = nclass + 1))
+        } else {
+            # equal width breaks
+            breaks <- seq(0, stepsize * nclass, stepsize)
+        }
+    } else {
         nclass <- length(breaks) - 1
     }
 

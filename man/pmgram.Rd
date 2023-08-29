@@ -5,7 +5,7 @@
  This function calculates simple and partial piecewise multivariate correlograms.
 }
 \usage{
-pmgram(data, space, partial, breaks, nclass, stepsize, resids = FALSE, nperm = 1000)
+pmgram(data, space, partial, breaks, nclass, stepsize, equiprobable = FALSE, resids = FALSE, nperm = 1000)
 }
 
 \arguments{
@@ -16,6 +16,7 @@ pmgram(data, space, partial, breaks, nclass, stepsize, resids = FALSE, nperm = 1
   \item{nclass}{ number of distance classes. If not specified, Sturge's rule will be used
 to determine an appropriate number of classes. }
   \item{stepsize}{ width of each distance class. If not specified, nclass and the range of space.d will be used to calculate an appropriate default. }
+  \item{equiprobable}{ if TRUE, create nclass classes of equal number of distances; if FALSE, create nclass classes of equal width }  
   \item{resids}{ if resids=TRUE, will return the residuals for each distance class. Otherwise returns 0. }
   \item{nperm}{ number of permutations to use. If set to 0, the permutation test will be omitted. }
 }

@@ -7,6 +7,10 @@ xdistance <- function(x, y, method = "euclidean") {
 
     # Sarah Goslee 2017-02-17, modified from legacy Splus code dated 01/01/01
 
+    if(method == "difference") {
+        stop("xdistance only works with symmetric indices.\n")
+    }
+
     if(is.null(ncol(x))) {
         x <- matrix(x, ncol=1)
         rownames(x) <- seq_len(nrow(x))

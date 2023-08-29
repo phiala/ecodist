@@ -1,35 +1,6 @@
-pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALSE, nperm = 1000)
+pmgram <- function(data, space, partial, breaks, nclass, stepsize, equiprobable = FALSE, resids = FALSE, nperm = 1000)
 
-{
-
-    epsilon <- 0.0000001
-
-    if(inherits(data, "dist")) {
-        data <- as.matrix(as.vector(data))
-    }
-    else {
-        data <- as.matrix(data)
-    }
-    space <- as.vector(space)
-    n <- ncol(full(space))
-
-
-# This function does four different analyses:
-# If data has 1 column and partial is missing, 
-# Multivariate correlogram
-# calculates a multivariate correlogram for data.
-#
-# If data has 2 columns and partial is missing,
 # Piecewise Mantel correlogram
-# calculates Mantel r between the two columns for each distance class.
-#
-# If data has 1 column and partial exists,
-# Partial multivariate correlogram
-# does a multivariate correlogram for the residuals over whole extent
-#
-# If data has 2 columns and partial exists,
-# Piecewise partial Mantel correlogram 
-# calculate partial for each distance class separately
 # 
 # results are:
 #    1 dmax
@@ -38,14 +9,30 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
 #    4 two-sided p-value
 
 # use breaks if it exists.
-# If nclass or stepsize aren't specified, use Sturges' rule to calculate nclass
+# If nclass or stepsize aren't specified, use Sturge's rule to calculate nclass
 # classes are shifted so that they don't have to start with zero
+
+# 2023-08-29 added equiprobable option for distance classes of equal number
+# rather than equal width
+
+{
+
+    epsilon <- 0.0000001
+
+    if(inherits(data, "dist")) {
+        data <- as.matrix(as.vector(data))
+    } else {
+        data <- as.matrix(data)
+    }
+    space <- as.vector(space)
+    n <- ncol(full(space))
+
 # 2023-08-18: changed from using round to ceiling in Sturges' rule 
 # calculation for compatibility with nclass.Sturges
     if(missing(breaks)) {
       if(missing(nclass)) {
          if(missing(stepsize)) {
-            nclass <- ceiling(1 + 3.3 * log10(length(space)))
+            nclass <- ceiling(1 + log2(length(space)))
             stepsize <- (max(space) - min(space)) / nclass
          } else {
             nclass <- round((max(space) - min(space))/stepsize)
@@ -55,9 +42,13 @@ pmgram <- function(data, space, partial, breaks, nclass, stepsize, resids = FALS
             stepsize <- (max(space) - min(space)) / nclass
          }
       }
-      breaks <- seq(0, stepsize * nclass, stepsize)
-   }
-    else {
+           if(equiprobable) {
+            breaks <- quantile(space.d, seq(0, 1, length.out = nclass + 1))
+        } else {
+            # equal width breaks
+            breaks <- seq(0, stepsize * nclass, stepsize)
+        }
+    } else {
         nclass <- length(breaks) - 1
     }
 
