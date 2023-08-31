@@ -1,5 +1,5 @@
 plot.mgram <- function(x, pval = 0.05, xlab = "Distance", ylab = 
-                "Mantel r", ...)
+                NULL, ...)
 {
 # x is the output from mgram
 # pval is the p-value to be considered signficant
@@ -7,6 +7,10 @@ plot.mgram <- function(x, pval = 0.05, xlab = "Distance", ylab =
 
         x <- x$mgram
 
+        if(is.null(ylab)) {
+            if(colnames(x)[3] == "wtI") ylab <- "Piecewise autocorrelation (I)"
+            if(colnames(x)[3] == "mantelr") ylab <- "Mantel autocorrelation (r)"
+        }
         pval.v <- x[, 4]
         pval.v[is.na(pval.v)] <- 1
         plot(x[, 1], x[, 3], type = "l", xlab = xlab, ylab = 
