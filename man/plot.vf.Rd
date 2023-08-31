@@ -11,6 +11,7 @@ Add vector fitting arrows to an existing ordination plot.
 \arguments{
   \item{x}{ an object of S3 class \code{vf}, created by \code{vf()} }
   \item{pval}{ optional, critical p-value for choosing variables to plot }
+  \item{r}{ optional, minimum Mantel r for choosing variables to plot }
   \item{cex}{ text size }
   \item{ascale}{ optional, proportion of plot area to use when calculating arrow length }
   \item{\dots}{ optional, other graphics parameters }
