@@ -16,7 +16,7 @@ vf(ord, vars, nperm = 100)
  Vector fitting finds the maximum correlation of the individual variables with a configuration of samples in ordination space. 
 }
 \value{
-  an object of class vf containing matrix with the first 2 columns containing the scores for every variable in each of the 2 dimensions of the ordination space. r is the maximum correlation of the variable with the ordination space, and pval is the result of the permutation test.
+  an object of class vf, which is a data frame with the first 2 columns containing the scores for every variable in each of the 2 dimensions of the ordination space. r is the maximum correlation of the variable with the ordination space, and pval is the result of the permutation test.
   }
 \references{ Jongman, R.H.G., C.J.F. ter Braak and O.F.R. van Tongeren. 1995. Data analysis in community and landscape ecology. Cambridge University Press, New York. }
 \author{ Sarah Goslee }

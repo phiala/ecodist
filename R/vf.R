@@ -41,10 +41,10 @@ vf <- function (ord, vars, nperm = 100)
             x[1]])/nperm, nperm = nperm)
     }
     else pval <- rep(0, ncol(vars))
-    vfres <- cbind(vf1$scores, vf1$r, pval)
+    vfres <- data.frame(vf1$scores, vf1$r, pval)
     dimnames(vfres)[[1]] <- dimnames(vars)[[2]]
     dimnames(vfres)[[2]] <- c(1:ncol(ord), "r", "pval")
-    class(vfres) <- "vf"
+    class(vfres) <- c("vf", "data.frame")
     vfres
 }
 
