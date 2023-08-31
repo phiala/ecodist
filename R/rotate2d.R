@@ -35,7 +35,12 @@ rotate2d <- function(ord, x) {
     }
 
     # assumes first two values of x are the coordinates, as from vf()
-    x <- x[1:2]
+    if(is.null(dim(x))) {
+        x <- x[1:2]
+    } else {
+        x <- as.matrix(x)[1, 1:2]
+    }
+
 
     ###
 

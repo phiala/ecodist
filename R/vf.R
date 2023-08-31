@@ -43,7 +43,7 @@ vf <- function (ord, vars, nperm = 100)
     else pval <- rep(0, ncol(vars))
     vfres <- data.frame(vf1$scores, vf1$r, pval)
     dimnames(vfres)[[1]] <- dimnames(vars)[[2]]
-    dimnames(vfres)[[2]] <- c(1:ncol(ord), "r", "pval")
+    dimnames(vfres)[[2]] <- c(paste0("X", 1:ncol(ord)), "r", "pval")
     class(vfres) <- c("vf", "data.frame")
     vfres
 }

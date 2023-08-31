@@ -7,7 +7,7 @@ plot.vf <- function (x, pval = NULL, r = NULL, cex = 0.8, ascale = 0.9, ...)
         x <- x[x[, 4] < pval, , drop=FALSE]
     }
     if(!is.null(r)) {
-        x <- x[x[, 2] >= r, , drop=FALSE]
+        x <- x[x[, 3] >= r, , drop=FALSE]
     }
     for (i in 1:dim(x)[[1]]) {
         arrows(0, 0, x[i, 1] * x[i, 3] * ascale, x[i, 2] * x[i, 
