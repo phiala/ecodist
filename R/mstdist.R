@@ -15,7 +15,7 @@ mstdist <- function(v, maxv = 1) {
 	v.ind <- expand.grid(v1 = seq_len(n), v2 = seq_len(n))
 
 	# lower triangular matrix: row > column
-	v.ind <- subset(v.ind, v1 > v2)
+	v.ind <- v.ind[v.ind$v1 > v.ind$v2, ]
 
 	v.graph <- add_edges(make_empty_graph(n), edges = t(v.ind), weight = ifelse(v >= maxv, sum(v) * 10, v))
 

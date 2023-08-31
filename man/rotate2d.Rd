@@ -1,11 +1,10 @@
 \name{rotate2d}
 \alias{rotate2d}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
   Rotate a 2D ordination.
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  Rotates a two-dimensional ordination configuration to place the direction indicated along the horizontal axis.
 }
 \usage{
 rotate2d(ord, x)
@@ -13,76 +12,62 @@ rotate2d(ord, x)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ord}{
-%%     ~~Describe \code{ord} here~~
+    A matrix or data frame with two columns, or a vf object, containing the points of an ordination configuration.
 }
   \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+    The coordinates of a point in the ordination space. }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    The configuration ord is rotated so that the vector defined by c(0, 0), and x is along the horizontal axis. This can be useful for placing a specific variable, for instance from vf(), in a consistent direction across multiple ordinations. Doing so can facilitate interpretation.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
+    A rotated data frame of coordinates of the same size as ord and in the same order. If ord was produced by vf(), the complete vf object is returned.
 }
 \author{
-%%  ~~who you are~~
+Sarah Goslee
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{vf}}, \code{\link{nmds}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (ord, x) 
-{
-    if (any(names(ord) == "vectors")) {
-        ord <- ord$vectors
-    }
-    isvf <- FALSE
-    if (inherits(ord, "vf")) {
-        vf.orig <- ord
-        isvf <- TRUE
-    }
-    if (!is.null(dim(ord))) {
-        ord <- as.matrix(ord[, 1:2, drop = FALSE])
-    }
-    else {
-        ord <- matrix(ord[1:2], ncol = 2)
-    }
-    x <- x[1:2]
-    theta <- -atan2(x[2], x[1])
-    ord.rot <- data.frame(x = ord[, 1] * cos(theta) - ord[, 2] * 
-        sin(theta), y = ord[, 1] * sin(theta) + ord[, 2] * cos(theta))
-    if (isvf) {
-        vf.orig[, 1:2] <- as.matrix(ord.rot)
-        ord.rot <- vf.orig
-    }
-    ord.rot
-  }
+# Example of multivariate analysis using built-in iris dataset
+data(iris)
+iris.d <- dist(iris[,1:4])
+
+### nmds() is timeconsuming, so this was generated
+### in advance and saved.
+### set.seed(1234)
+### iris.nmds <- nmds(iris.d, nits=20, mindim=1, maxdim=4)
+### save(iris.nmds, file="ecodist/data/iris.nmds.rda")
+data(iris.nmds)
+
+# examine fit by number of dimensions
+plot(iris.nmds)
+
+# choose the best two-dimensional solution to work with
+iris.nmin <- min(iris.nmds, dims=2)
+
+# fit the data to the ordination as vectors
+### vf() is timeconsuming, so this was generated
+### in advance and saved.
+### set.seed(1234)
+### iris.vf <- vf(iris.nmin, iris[,1:4], nperm=1000)
+### save(iris.vf, file="ecodist/data/iris.vf.rda")
+data(iris.vf)
+
+plot(iris.nmin, col=as.numeric(iris$Species), pch=as.numeric(iris$Species), main="NMDS")
+plot(iris.vf)
+
+# rotate configuration so Sepal Width is along the horizontal axis
+
+iris.nmin.rot <- rotate2d(iris.nmin, iris.vf[2, 1:2])
+iris.vf.rot <- rotate2d(iris.vf, iris.vf[2, 1:2])
+
+plot(iris.nmin.rot, col=as.numeric(iris$Species), pch=as.numeric(iris$Species), main="NMDS")
+plot(iris.vf.rot)
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
-% \concept{ ~cpt1 }
-% \concept{ ~cpt2 }
-% Use only one concept per line.
+\keyword{ multivariate }
+

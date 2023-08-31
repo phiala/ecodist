@@ -42,7 +42,7 @@ xmgram <- function(species.xd, space.xd, breaks, nclass, stepsize, equiprobable 
             }
         }
         if(equiprobable) {
-            breaks <- quantile(space.d, seq(0, 1, length.out = nclass + 1))
+            breaks <- quantile(space.xd, seq(0, 1, length.out = nclass + 1))
         } else {
             # equal width breaks
             breaks <- seq(0, stepsize * nclass, stepsize)

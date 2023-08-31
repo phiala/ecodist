@@ -48,8 +48,17 @@ iris.nmin <- min(iris.nmds, dims=2)
 ### iris.vf <- vf(iris.nmin, iris[,1:4], nperm=1000)
 ### save(iris.vf, file="ecodist/data/iris.vf.rda")
 data(iris.vf)
+
 plot(iris.nmin, col=as.numeric(iris$Species), pch=as.numeric(iris$Species), main="NMDS")
 plot(iris.vf)
+
+# rotate configuration so Sepal Width is along the horizontal axis
+
+iris.nmin.rot <- rotate2d(iris.nmin, iris.vf[2, 1:2])
+iris.vf.rot <- rotate2d(iris.vf, iris.vf[2, 1:2])
+
+plot(iris.nmin.rot, col=as.numeric(iris$Species), pch=as.numeric(iris$Species), main="NMDS")
+plot(iris.vf.rot)
 
 }
 \keyword{ multivariate }

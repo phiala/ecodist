@@ -5,7 +5,8 @@
  This function calculates simple and partial piecewise multivariate correlograms.
 }
 \usage{
-pmgram(data, space, partial, breaks, nclass, stepsize, equiprobable = FALSE, resids = FALSE, nperm = 1000)
+pmgram(data, space, partial, breaks, nclass, stepsize, equiprobable = FALSE, 
+  resids = FALSE, nperm = 1000)
 }
 
 \arguments{
