@@ -46,8 +46,8 @@ rotate2d <- function(ord, x) {
 
     theta <- - atan2(x[2], x[1])
 
-    ord.rot <- data.frame(x = ord[, 1] * cos(theta) - ord[, 2] * sin(theta), 
-                      y = ord[, 1] * sin(theta) + ord[, 2] * cos(theta))
+    ord.rot <- data.frame(X1 = ord[, 1] * cos(theta) - ord[, 2] * sin(theta), 
+                      X2 = ord[, 1] * sin(theta) + ord[, 2] * cos(theta))
 
     if(isvf) {
         vf.orig[, 1:2] <- as.matrix(ord.rot)
