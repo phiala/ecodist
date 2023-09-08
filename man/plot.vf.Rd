@@ -5,7 +5,7 @@
 Add vector fitting arrows to an existing ordination plot.
 }
 \usage{
-\method{plot}{vf}(x, pval = 1, cex = 0.8, ascale = 0.9, \dots)
+\method{plot}{vf}(x, pval = NULL, r = NULL, cex = 0.8, ascale = 0.9, \dots)
 }
 
 \arguments{

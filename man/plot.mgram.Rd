@@ -5,7 +5,7 @@
   Plot a Mantel correlogram from an object of S3 class \code{mgram}, using solid symbols for significant values.
 }
 \usage{
-\method{plot}{mgram}(x, pval = 0.05, xlab = "Distance", ylab = "Mantel r", \dots)
+\method{plot}{mgram}(x, pval = 0.05, xlab = "Distance", ylab = NULL, \dots)
 }
 
 \arguments{

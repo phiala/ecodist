@@ -1,6 +1,4 @@
-citHeader("To cite package ecodist in publications use:")
-
-citEntry(entry="Article",
+bibentry("Article",
 	title = "The ecodist package for dissimilarity-based analysis of ecological data",
 	author = c(person(c("Sarah", "C."), "Goslee"),
                    person(c("Dean", "L."), "Urban")),
