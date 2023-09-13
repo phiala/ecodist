@@ -23,6 +23,7 @@ nmds.min <- function(x, dims=2)
     cat("r^2 for minimum stress configuration: ", x$r2[which.min(x$stress)], "\n")
     x.min <- x.min[[1]]
     x.min <- data.frame(x.min)
+    colnames(x.min) <- paste0("X", seq_len(ncol(x.min)))
     attr(x.min, "stress") <- x$stress[which.min(x$stress)]
     attr(x.min, "r2") <- x$r2[which.min(x$stress)]
     x.min

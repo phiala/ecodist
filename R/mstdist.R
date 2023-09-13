@@ -2,7 +2,7 @@ mstdist <- function(v, maxv = 1) {
 
 	# v is a lower-triangular distance matrix
 	# maxv is the cutoff for distances: values greater or equal to this will be estimated 
-	# from the minimum spanning tree
+	# from the shortest path along the distance-weighted graph connecting the samples
 
 	n <- (1 + sqrt(1 + 8 * length(v)))/2
 	if (abs(n - round(n)) > 1e-07)
@@ -12,15 +12,14 @@ mstdist <- function(v, maxv = 1) {
 	###
 
 
-	v.ind <- expand.grid(v1 = seq_len(n), v2 = seq_len(n))
+    v.ind <- data.frame(v1 = lower(row(full(v))), v2 = lower(col(full(v))))
 
-	# lower triangular matrix: row > column
-	v.ind <- v.ind[v.ind$v1 > v.ind$v2, ]
+    v.ind$d <- v
+    v.ind <- subset(v.ind, d < maxv)
 
-	v.graph <- add_edges(make_empty_graph(n), edges = t(v.ind), weight = ifelse(v >= maxv, sum(v) * 10, v))
+    v.graph2 <- add_edges(make_empty_graph(n), edges = t(v.ind[, 1:2]), weight = v.ind$d)
 
 	v.dist <- distances(v.graph)
-
 	v.dist <- lower(v.dist)
 
     ## give the result appropriate attributes based on the original object
@@ -28,6 +27,8 @@ mstdist <- function(v, maxv = 1) {
 
     if(!is.null(attr(v.dist, "method"))) {
         attr(v.dist, "method") <- paste(attr(v.dist, "method"), "mst", sep="-")
+    } else {
+        attr(v.dist, "method") <- "mst"
     }
 
     v.dist

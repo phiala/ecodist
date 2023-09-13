@@ -1,10 +1,10 @@
 \name{mstdist}
 \alias{mstdist}
 \title{
-  Minimum spanning tree extension of dissimilarities
+  Graph extension of dissimilarities
 }
 \description{
-	Uses minimum spanning tree path length to estimate the distance between samples with pairwise distances greater than maxv.
+	Uses the shortest path connecting sites to estimate the distance between samples with pairwise distances greater than maxv.
 }
 \usage{
 mstdist(v, maxv = 1)
@@ -18,7 +18,7 @@ mstdist(v, maxv = 1)
 }
 }
 \details{
- 	Pairwise samples with no species will have distances greater than a cutoff. A minimum spanning tree connecting these samples by way of intermediate samples with some species in common can be used to interpolate distances by adding up the path length connecting those samples.
+ 	Pairwise samples with no species will have distances greater than a cutoff. A distance-weighted graph connecting these samples by way of intermediate samples with some species in common can be used to interpolate distances by adding up the path length connecting those samples.
 }
 \value{
 	Returns a lower-triangular distance matrix.
@@ -45,7 +45,8 @@ mstdist(v, maxv = 1)
 	# regardless of how different the samples are
 	x.jd <- dist(x, "binary")
 
-	# using the MST, estimate the true distance between those pairs
+	# estimate the true distance between those pairs
+	# by following the shorted path along connected sites
 	mstdist(x.jd)
 
 }

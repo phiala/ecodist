@@ -3,6 +3,11 @@
 Dissimilarity-based analysis functions including ordination and Mantel test functions, intended for use with spatial and community data.
 
 
+** CHANGES in ecodist 2.1.2**
+
+  - fixed a scaling error in pco that resulted in the wrong magnitude (but correct pattern) of vectors
+
+
 ** CHANGES in ecodist 2.1.1**
 
   - added relrange to standardize matrices

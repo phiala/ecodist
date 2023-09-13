@@ -20,7 +20,7 @@ rounding to that number of places. }
 }
 \value{
   \item{values }{eigenvalue for each component. This is a measure of the variance explained by each dimension.}
-  \item{vectors }{eigenvectors. Each column contains the scores for that dimension.}
+  \item{vectors }{eigenvectors. data frame with columns containing the scores for that dimension.}
 }
 \author{ Sarah Goslee }
 
