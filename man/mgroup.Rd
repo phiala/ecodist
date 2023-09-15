@@ -5,7 +5,7 @@
   Mantel test across one or more group contrasts.
 }
 \usage{
-mgroup(edist, groups, nperm=1000, mrank = FALSE)
+mgroup(edist, groups, nperm = 1000, mrank = FALSE)
 }
 
 \arguments{

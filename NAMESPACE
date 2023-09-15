@@ -1,5 +1,5 @@
 ## Functions
-export(bcdist, distance, fixdmat, mstdist, relrange)
+export(bcdist, distance, fixdmat, pathdist, relrange)
 export(mantel, mgroup, mgram, pmgram, MRM)
 export(cor2m, corgen, crosstab, full, lower)
 export(pco, nmds, nmds.min, min.nmds, vf, addord, rotate2d)

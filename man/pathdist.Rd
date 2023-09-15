@@ -1,5 +1,5 @@
-\name{mstdist}
-\alias{mstdist}
+\name{pathdist}
+\alias{pathdist}
 \title{
   Graph extension of dissimilarities
 }
@@ -7,7 +7,7 @@
 	Uses the shortest path connecting sites to estimate the distance between samples with pairwise distances greater than maxv.
 }
 \usage{
-mstdist(v, maxv = 1)
+pathdist(v, maxv = 1)
 }
 \arguments{
   \item{v}{
@@ -18,7 +18,8 @@ mstdist(v, maxv = 1)
 }
 }
 \details{
- 	Pairwise samples with no species will have distances greater than a cutoff. A distance-weighted graph connecting these samples by way of intermediate samples with some species in common can be used to interpolate distances by adding up the path length connecting those samples.
+ 	Pairwise samples with no species will have distances greater than a cutoff. A distance-weighted graph connecting these samples by way of intermediate samples with some species in common can be used to interpolate distances by adding up the path length connecting those samples. 
+	This function will fail if there are completely disconnected subsets.
 }
 \value{
 	Returns a lower-triangular distance matrix.
@@ -47,7 +48,7 @@ mstdist(v, maxv = 1)
 
 	# estimate the true distance between those pairs
 	# by following the shorted path along connected sites
-	mstdist(x.jd)
+	pathdist(x.jd)
 
 }
 \keyword{ multivariate }
