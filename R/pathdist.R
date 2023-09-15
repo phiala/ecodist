@@ -16,7 +16,7 @@ pathdist <- function(v, maxv = 1) {
     v.ind <- data.frame(v1 = lower(row(full(v))), v2 = lower(col(full(v))))
 
     v.ind$d <- v
-    v.ind <- subset(v.ind, v.ind$d < maxv)
+    v.ind <- v.ind[v.ind$d < maxv, ]
 
     v.graph <- add_edges(make_empty_graph(n, directed = FALSE), edges = t(v.ind[, 1:2]), weight = v.ind$d)
 
