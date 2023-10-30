@@ -20,11 +20,11 @@ nmds(dmat, mindim = 1, maxdim = 2, nits = 10, iconf, epsilon = 1e-12,
   \item{trace}{ if TRUE, will write progress indicator to the screen. }
 }
 \details{
-  The goal of NMDS is to find a configuration in a given number of dimensions which preserves rank-order dissimilarities as closely as possible. The number of dimensions must be specified in advance. Because NMDS is prone to finding local minima, several random starts must be used. Stress is used as the measure of goodness of fit. A lower stress indicates a better match between dissimilarity and ordination.
-  As of ecodist 1.9, the stress calculation used is the same as in \code{MASS:isoMDS}. In previous versions it was monotonically related, so the same configurations were produced, but the absolute value was different.
+  The goal of NMDS is to find a configuration in a given number of dimensions which preserves rank-order dissimilarities as closely as possible. The number of dimensions must be specified in advance. Because NMDS is prone to finding local minima, several random starts must be used. 
+Stress is used as the measure of goodness of fit. A lower stress indicates a better match between dissimilarity and ordination. As of ecodist 1.9, the stress calculation used is the same as in \code{MASS:isoMDS}. In previous versions it was monotonically related, so the same configurations were produced, but the absolute value was different.
 }
 \value{
-  \item{conf }{list of configurations.}
+  \item{conf }{list of configurations, each in the same units as the original dissimilarities.}
   \item{stress }{list of final stress values.}
   \item{r2 }{total variance explained by each configuration.}
 
